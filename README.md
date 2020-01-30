@@ -1,24 +1,8 @@
-# README
+[![Codeship Status for Crxssroad/dashy](https://app.codeship.com/projects/725b4fc0-253b-0138-e6c3-6247b5fc51b3/status?branch=master)](https://app.codeship.com/projects/383388)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Dashy
 
-Things you may want to cover:
+A dashboard for the discerning developer.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Author
+  * Gabriel
