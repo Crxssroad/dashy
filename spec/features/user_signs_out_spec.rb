@@ -15,7 +15,7 @@ feature 'user signs out', %Q{
 
     visit new_user_session_path
 
-    fill_in 'Email', with: user.email
+    fill_in 'Login with an email or username', with: user.email
     fill_in 'Password', with: user.password
 
     click_button 'Log in'
