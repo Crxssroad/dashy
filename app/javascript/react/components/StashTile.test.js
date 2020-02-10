@@ -36,7 +36,7 @@ describe("StashTile", () => {
   })
 
   it("should return an li element with a custom class", () => {
-    expect(wrapper.find("li").props().className).toBe("journals-stash-tile")
+    expect(wrapper.find("li").props().className).toBe("journals-stash stash-tile")
   })
 
   it("should return Link component leading to its specific index container", () => {
