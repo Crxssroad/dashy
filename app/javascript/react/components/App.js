@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Dashboard from './Dashboard'
 import Stash from './Stash'
-import JournalsIndexContainer from './JournalsIndexContainer'
+import JournalsIndexContainer from './journal/JournalsIndexContainer'
 
 export const App = (props) => {
   return (
