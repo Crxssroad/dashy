@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import StashTile from './StashTile';
+
 const Stash = () => {
   const [journals, setJournals] = useState([])
 
@@ -19,7 +21,12 @@ const Stash = () => {
   }, [])
 
   return(
-    <h1>Stash</h1>
+    <ul>
+      <StashTile
+        type="journals"
+        content={journals}
+      />
+    </ul>
   )
 }
 
