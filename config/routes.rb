@@ -5,4 +5,12 @@ Rails.application.routes.draw do
 
   get '/dash', to: 'homes#index'
   get '/stash', to: 'homes#index'
+  get '/stash/:module', to: 'homes#index'
+
+  namespace 'api' do
+    namespace 'v1' do
+      resources :stashes, only: [:index]
+      resources :journals, only: [:index]
+    end
+  end
 end
