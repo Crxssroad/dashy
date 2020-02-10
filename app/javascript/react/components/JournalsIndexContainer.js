@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-const Stash = () => {
+import JournalTile from './JournalTile';
+
+const JournalsIndexContainer = () => {
   const [journals, setJournals] = useState([])
 
   useEffect(() => {
@@ -18,9 +20,20 @@ const Stash = () => {
     .catch(error => console.error(`Error in stash fetch ${error.message}`))
   }, [])
 
+  const journalTiles = journals.map(journal => {
+    return(
+      <JournalTile
+        key={journal.id}
+        journal={journal}
+      />
+    )
+  })
+
   return(
-    <h1>Stash</h1>
+    <ul className="journals-index-container">
+      {journalTiles}
+    </ul>
   )
 }
 
-export default Stash;
+export default JournalsIndexContainer;
