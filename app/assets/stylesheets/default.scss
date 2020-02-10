@@ -1,0 +1,21 @@
+$primary: #F8F8F8;
+$secondary: #339CC2;
+
+body {
+  background-color: $primary;
+  margin: 0;
+}
+
+#app {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+
+.top-bar-bg {
+  background-color: #FFFF;
+}
+
+.top-bar {
+  max-width: 70rem;
+  margin: 0 auto;
+}
