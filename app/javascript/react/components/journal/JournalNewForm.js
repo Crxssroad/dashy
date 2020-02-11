@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 import ErrorList from '../ErrorList';
 
-const JournalNewForm = ({ handleFormDisplay, errors, addNewJournal }) => {
-  const emptyJournal = {
+const JournalNewForm = ({ handleFormDisplay, errors, addNewJournal, editJournal, oldJournal }) => {
+  let defaultJournal = {
     title: "",
     description: ""
   }
-  const [journal, setJournal] = useState(emptyJournal)
+  if (editJournal) defaultJournal = oldJournal;
+  const [journal, setJournal] = useState(defaultJournal)
 
   const handleInput = event => {
     setJournal({
@@ -18,7 +19,8 @@ const JournalNewForm = ({ handleFormDisplay, errors, addNewJournal }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    addNewJournal(journal)
+    if(addNewJournal) addNewJournal(journal)
+    if(editJournal) editJournal(journal)
   }
 
   return (
@@ -34,7 +36,7 @@ const JournalNewForm = ({ handleFormDisplay, errors, addNewJournal }) => {
         <textarea name="description" onChange={handleInput} value={journal.description}/>
       </label>
 
-      <input type="submit" value="Create" />
+      <input type="submit" value={addNewJournal ? 'Create' : 'Save'} />
       <input type="button" value="Cancel" onClick={handleFormDisplay}/>
     </form>
   )
