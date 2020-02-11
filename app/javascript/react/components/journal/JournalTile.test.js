@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
@@ -15,9 +16,11 @@ describe("JournalTile", () => {
 
   beforeEach(() => {
     wrapper = mount(
-      <JournalTile
-        journal={customJournal}
-      />
+      <BrowserRouter>
+        <JournalTile
+          journal={customJournal}
+          />
+      </BrowserRouter>
     )
   })
 
