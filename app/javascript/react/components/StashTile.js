@@ -6,7 +6,11 @@ const StashTile = ({ type, content }) => {
 
   const contentTiles = content.map(each => {
     return(
-      <li key={each.id} className="content-tile"><span>•</span> {each.title}</li>
+      <Link to={`/stash/${type}/${each.id}`} key={each.id}>
+        <li className="content-tile">
+          <span>•</span> {each.title}
+        </li>
+      </Link>
     )
   })
 
