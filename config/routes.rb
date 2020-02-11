@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :stashes, only: [:index]
-      resources :journals, only: [:index]
+      resources :journals, only: [:index, :create]
     end
   end
 end

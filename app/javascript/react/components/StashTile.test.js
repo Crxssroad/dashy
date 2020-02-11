@@ -36,7 +36,7 @@ describe("StashTile", () => {
   })
 
   it("should return an li element with a custom class", () => {
-    expect(wrapper.find("li").props().className).toBe("journals-stash-tile")
+    expect(wrapper.find("section").props().className).toBe("journals-stash stash-tile")
   })
 
   it("should return Link component leading to its specific index container", () => {
@@ -44,6 +44,6 @@ describe("StashTile", () => {
   })
 
   it("should return a p element containing the amount of journals passed into it", () => {
-    expect(wrapper.find("p").first().text()).toBe("You have 3 journals")
+    expect(wrapper.find("h3").first().text()).toBe("You have 3 journals")
   })
 })
