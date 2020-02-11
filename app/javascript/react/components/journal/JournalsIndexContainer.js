@@ -64,7 +64,7 @@ const JournalsIndexContainer = () => {
     setNewClicked(!newClicked)
   }
 
-  let form = <input type="button" className="button" onClick={handleFormDisplay} value="Create Journal" />
+  let form = <input type="button" onClick={handleFormDisplay} value="Create Journal" />
   if (newClicked) {
     form = <JournalNewForm
       handleFormDisplay={handleFormDisplay}

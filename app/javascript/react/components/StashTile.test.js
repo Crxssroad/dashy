@@ -12,14 +12,17 @@ describe("StashTile", () => {
   let type = "journals"
   let content = [
     {
+      id: 1,
       title: "Where's Waldo?",
       description: "Not entirely sure"
     },
     {
+      id: 2,
       title: "Generic Journal",
       description: "Generic Description"
     },
     {
+      id: 3,
       title: "Interesting Journal",
       description: "Very interesting description"
     },
@@ -35,15 +38,23 @@ describe("StashTile", () => {
     )
   })
 
-  it("should return an li element with a custom class", () => {
+  it("should return a section element with a custom class", () => {
     expect(wrapper.find("section").props().className).toBe("journals-stash stash-tile")
   })
 
   it("should return Link component leading to its specific index container", () => {
-    expect(wrapper.find("Link").props().to).toBe("/stash/journals")
+    expect(wrapper.find("Link").first().props().to).toBe("/stash/journals")
+  })
+
+  it("should return Link component leading to its specific index container", () => {
+    expect(wrapper.find("Link").first().props().to).toBe("/stash/journals")
   })
 
   it("should return a p element containing the amount of journals passed into it", () => {
     expect(wrapper.find("h3").first().text()).toBe("You have 3 journals")
+  })
+
+  it("should return 3 li elements", () => {
+    expect(wrapper.find("li").length).toBe(3)
   })
 })
