@@ -31,6 +31,11 @@ class Api::V1::JournalsController < ApplicationController
     end
   end
 
+  def destroy
+    journal = Journal.find(params[:id])
+    journal.destroy
+  end
+
   private
 
   def journal_params

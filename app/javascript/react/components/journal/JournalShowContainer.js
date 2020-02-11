@@ -7,6 +7,7 @@ const JournalShowContainer = props => {
   const [journal, setJournal] = useState({});
   const [errors, setErrors] = useState([]);
   const [editClicked, setEditClicked] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const journalId = props.match.params.id;
 
@@ -53,15 +54,42 @@ const JournalShowContainer = props => {
     .catch(error => console.error(`Error in journal patch fetch ${error.message}`))
   }
 
+  const deleteJournal = (payload) => {
+    fetch(`/api/v1/journals/${journalId}`, {
+      credentials: 'same-origin',
+      method: "DELETE"
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+    })
+    .then(parsedBody => {
+      setShouldRedirect(true)
+    })
+    .catch(error => console.error(`Error in journal delete fetch ${error.message}`))
+  }
+
   const handleFormDisplay = () => {
     setEditClicked(!editClicked)
   }
 
-  let display = <Fragment>
-    <JournalDetails journal={journal} />
-    <input type="button" onClick={handleFormDisplay} value="Edit" />
-    <input type="button" onClick={handleFormDisplay} value="Delete" />
-  </Fragment>
+  const handleDelete = () => {
+    if (window.confirm(`Deleteing "${journal.title}" will delete all of its associated notes. Are you sure?`)) {
+      deleteJournal();
+    };
+  };
+
+  let display
+  if (journal.title) {
+    display = <Fragment>
+      <JournalDetails journal={journal} />
+      <input type="button" onClick={handleFormDisplay} value="Edit" />
+      <input type="button" value="Delete" onClick={handleDelete}/>
+    </Fragment>
+  }
   if (editClicked) {
     display = <JournalNewForm
       handleFormDisplay={handleFormDisplay}
@@ -70,6 +98,8 @@ const JournalShowContainer = props => {
       errors={errors}
     />
   }
+
+  if (shouldRedirect) return <Redirect to='/stash/journals' />
 
   return(
     <div className="journal-show-container">
