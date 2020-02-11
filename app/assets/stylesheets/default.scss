@@ -1,14 +1,8 @@
-$primary: #F8F8F8;
-$secondary: #339CC2;
+$bg_background: #F8F8F8;
 $greyOnWhite: #494848;
 
 body {
-  background-color: $primary;
-  margin: 0;
-}
-
-#app {
-  margin: 0 1rem;
+  background-color: $bg_background;
 }
 
 .top-bar-bg {
