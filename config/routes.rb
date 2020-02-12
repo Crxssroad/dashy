@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :stashes, only: [:index]
       resources :journals, only: [:index, :show, :create, :update, :destroy]
+      get '/users/current'
     end
   end
 end
