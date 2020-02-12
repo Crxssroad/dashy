@@ -17,9 +17,9 @@ const Topbar = props => {
   if(activePage === "dash") dashClass+= " active"
   if(activePage === "stash") stashClass+= " active"
 
-  const signOut = () => {
+  const logout = () => {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    fetch('users/sign_out',
+    fetch('users/logout',
       {
         credentials: 'same-origin',
         method: "DELETE",
@@ -32,7 +32,9 @@ const Topbar = props => {
     .then(() => setShouldLogout(true))
   }
 
-  if (shouldLogout) return <Redirect to="/users/sign_in" />
+  if (shouldLogout && props.history.action !== "REPLACE") {
+    return <Redirect to="/users/signup" />
+  }
 
   return (
     <Fragment>
@@ -56,7 +58,7 @@ const Topbar = props => {
           <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link to="#" className="nav-link" onClick={signOut} to="/users/sign_out">Sign Out</Link>
+                  <Link to="#" className="nav-link" onClick={logout}>Logout</Link>
                 </li>
               </ul>
           </div>
@@ -66,7 +68,7 @@ const Topbar = props => {
         <Route exact path='/' component={Dashboard}/>
         <Route exact path='/dash' component={Dashboard}/>
         <Route exact path='/stash' component={Stash}/>
-        <Route exact path='/users/sign-up' component={SignUpContainer}/>
+        <Route exact path='/users/signup' component={SignUpContainer}/>
         <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
         <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
       </Switch>
