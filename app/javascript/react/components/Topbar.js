@@ -6,6 +6,7 @@ import Stash from './Stash'
 import JournalsIndexContainer from './journal/JournalsIndexContainer'
 import JournalShowContainer from './journal/JournalShowContainer'
 import SignUpContainer from './SignUpContainer'
+import LoginContainer from './LoginContainer'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState({})
@@ -33,7 +34,7 @@ const Topbar = props => {
   }
 
   if (shouldLogout && props.history.action !== "REPLACE") {
-    return <Redirect to="/users/signup" />
+    window.location.replace("/users/login")
   }
 
   return (
@@ -69,6 +70,7 @@ const Topbar = props => {
         <Route exact path='/dash' component={Dashboard}/>
         <Route exact path='/stash' component={Stash}/>
         <Route exact path='/users/signup' component={SignUpContainer}/>
+        <Route exact path='/users/login' component={LoginContainer}/>
         <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
         <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
       </Switch>

@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import ErrorList from './ErrorList'
 
@@ -11,6 +12,10 @@ const SignUpContainer = () => {
   })
   const [errors, setErrors] = useState([])
   const [shouldRedirect, setShouldRedirect] = useState(false)
+  if (shouldRedirect) {
+    window.location.replace("/dash")
+  }
+
   const createUser = (registration) => {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     fetch('/users',
@@ -84,6 +89,9 @@ const SignUpContainer = () => {
         </label>
 
         <input type="submit" value="Sign Up" />
+        <p>
+          Already a signed up? <Link to="/users/login">Login</Link>
+        </p>
       </form>
     </Fragment>
   )
