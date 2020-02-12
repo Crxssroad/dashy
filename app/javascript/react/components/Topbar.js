@@ -9,14 +9,24 @@ import SignUpContainer from './SignUpContainer'
 import LoginContainer from './LoginContainer'
 
 const Topbar = props => {
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState(null)
   const [shouldLogout, setShouldLogout] = useState(false)
   const activePage = props.location.pathname.slice(1);
 
-  let dashClass = "nav-item"
-  let stashClass = "nav-item"
-  if(activePage === "dash") dashClass+= " active"
-  if(activePage === "stash") stashClass+= " active"
+  useEffect(() => {
+    fetch('/api/v1/users/current')
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      setCurrentUser(parsedBody)
+    })
+    .catch(error => `Error in fetch ${error.message}`)
+  }, [])
 
   const logout = () => {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -36,18 +46,48 @@ const Topbar = props => {
   if (shouldLogout && props.history.action !== "REPLACE") {
     window.location.replace("/users/login")
   }
+  let dashClass = "nav-item"
+  let stashClass = "nav-item"
+  if(activePage === "dash") dashClass+= " active"
+  if(activePage === "stash") stashClass+= " active"
+  let rightTopbarContent, leftTopbarContent
+  if(currentUser) {
+    leftTopbarContent =
+      <Fragment>
+        <li className={dashClass}>
+          <Link to="#" className="nav-link" to="/dash">{currentUser.username}</Link>
+        </li>
+        <li className={dashClass}>
+          <Link to="#" className="nav-link" to="/dash">Dash</Link>
+        </li>
+        <li className={stashClass}>
+          <Link to="#" className="nav-link" to="/stash">My Stash</Link>
+        </li>
+      </Fragment>
+    rightTopbarContent =
+      <Fragment>
+        <li className="nav-item">
+          <Link to="#" className="nav-link" onClick={logout}>Logout</Link>
+        </li>
+      </Fragment>
+  } else {
+    rightTopbarContent =
+      <Fragment>
+        <li className="nav-item">
+          <Link to="/users/login" className="nav-link">Login</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/users/signup" className="nav-link">Sign Up</Link>
+        </li>
+      </Fragment>
+  }
 
   return (
     <Fragment>
       <nav className="navbar navbar-expand-md navbar-light top-bar-bg">
           <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
               <ul className="navbar-nav mr-auto">
-                <li className={dashClass}>
-                  <Link to="#" className="nav-link" to="/dash">Home</Link>
-                </li>
-                <li className={stashClass}>
-                  <Link to="#" className="nav-link" to="/stash">My Stash</Link>
-                </li>
+                {leftTopbarContent}
               </ul>
           </div>
           <div className="mx-auto order-0">
@@ -58,9 +98,7 @@ const Topbar = props => {
           </button>
           <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link to="#" className="nav-link" onClick={logout}>Logout</Link>
-                </li>
+                {rightTopbarContent}
               </ul>
           </div>
       </nav>
