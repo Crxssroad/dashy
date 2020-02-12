@@ -7,11 +7,12 @@ import JournalsIndexContainer from './journal/JournalsIndexContainer'
 import JournalShowContainer from './journal/JournalShowContainer'
 import SignUpContainer from './SignUpContainer'
 import LoginContainer from './LoginContainer'
+import Sidebar from './Sidebar'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
   const [shouldLogout, setShouldLogout] = useState(false)
-  const activePage = props.location.pathname.slice(1);
+  const activePath = props.location.pathname.slice(1);
 
   useEffect(() => {
     fetch('/api/v1/users/current')
@@ -46,37 +47,46 @@ const Topbar = props => {
   if (shouldLogout && props.history.action !== "REPLACE") {
     window.location.replace("/users/login")
   }
-  let dashClass = "nav-item navbar-text"
-  let stashClass = "nav-item navbar-text"
-  if(activePage === "dash") dashClass+= " active"
-  if(activePage === "stash") stashClass+= " active"
+
+  let togglerIcon =
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+  let dashClass = "nav-item navbar-text navbar-sidebar"
+  let stashClass = "nav-item navbar-text navbar-sidebar"
+  if(activePath === "dash") dashClass+= " active"
+  if(activePath === "stash") stashClass+= " active"
   let rightTopbarContent, leftTopbarContent
   if(currentUser) {
+    togglerIcon =
+    <button className="navbar-toggler" style={{padding:0, border:'none'}} type="button" data-toggle="collapse" data-target=".dual-collapse2">
+      <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
+    </button>
     leftTopbarContent =
       <Fragment>
-        <li className="nav-item">
-          <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
-        </li>
-        <li className="nav-item navbar-text">
-          <span className="navbar-text">Welcome back, {currentUser.username}</span>
-        </li>
         <li className={dashClass}>
+          <i className="fas fa-chalkboard"></i>
           <Link to="#" className="nav-link" to="/dash">Dash</Link>
         </li>
         <li className={stashClass}>
+          <i className="fas fa-briefcase"></i>
           <Link to="#" className="nav-link" to="/stash">My Stash</Link>
         </li>
+        <Link to="#" className="nav-link" onClick={logout}>Logout</Link>
       </Fragment>
     rightTopbarContent =
       <Fragment>
+        <li className="nav-item navbar-text">
+          <span className="navbar-text">Welcome back, {currentUser.username}</span>
+        </li>
         <li className="nav-item">
-          <Link to="#" className="nav-link" onClick={logout}>Logout</Link>
+          <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
         </li>
       </Fragment>
   } else {
     rightTopbarContent =
       <Fragment>
-        <li className="nav-item">
+        <li className="nav-item navbar-sidebar">
           <Link to="/users/login" className="nav-link">Login</Link>
         </li>
         <li className="nav-item">
@@ -96,25 +106,25 @@ const Topbar = props => {
           <div className="mx-auto order-0">
               <Link to="#" className="navbar-brand mx-auto" href="#">Dashy</Link>
           </div>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
+          {togglerIcon}
+          <div className="navbar-collapse collapse w-100 order-3">
               <ul className="navbar-nav ml-auto">
                 {rightTopbarContent}
               </ul>
           </div>
       </nav>
-
-      <Switch>
-        <Route exact path='/' component={Dashboard}/>
-        <Route exact path='/dash' component={Dashboard}/>
-        <Route exact path='/stash' component={Stash}/>
-        <Route exact path='/users/signup' component={SignUpContainer}/>
-        <Route exact path='/users/login' component={LoginContainer}/>
-        <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
-        <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
-      </Switch>
+      <section className="display-area">
+        <Sidebar activePath={activePath} />
+        <Switch>
+          <Route exact path='/' component={Dashboard}/>
+          <Route exact path='/dash' component={Dashboard}/>
+          <Route exact path='/stash' component={Stash}/>
+          <Route exact path='/users/signup' component={SignUpContainer}/>
+          <Route exact path='/users/login' component={LoginContainer}/>
+          <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
+          <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
+        </Switch>
+      </section>
     </Fragment>
   )
 }
