@@ -50,10 +50,69 @@ body {
 
 .navbar {
   min-height: 6rem;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 .top-bar-profile-photo {
   height: 4rem;
   width: 4rem;
   border-radius: 3rem;
+}
+
+.display-area {
+  display: flex;
+  width: 100%;
+  align-content: stretch;
+}
+
+#side-bar {
+  background-color: #FFFF;
+
+  width: 3rem;
+  height: 100vh;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  -webkit-box-shadow: 4px 0px 5px 0px rgba(107,107,107,0.48);
+  -moz-box-shadow: 4px 0px 5px 0px rgba(107,107,107,0.48);
+  box-shadow: 4px 0px 5px 0px rgba(107,107,107,0.48);
+}
+
+.navbar-sidebar {
+  display: none;
+}
+
+// tablets
+@media only screen and (max-width: 768px) {
+
+}
+// mobile
+@media only screen and (max-width: 360px) {
+  #side-bar {
+    display: none;
+  }
+  .navbar-sidebar {
+    display: initial;
+    a {
+      display: inline-block;
+    }
+    i {
+      width: 20px;
+      margin-right: 4px;
+      text-align: center;
+    }
+  }
+}
+.side-bar-icon {
+  font-size: 2rem;
+  list-style: none;
+  text-align: center;
+}
+
+.active-icon {
+  background-color: cadetblue;
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 2.95rem;
 }
