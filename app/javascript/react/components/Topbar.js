@@ -46,16 +46,19 @@ const Topbar = props => {
   if (shouldLogout && props.history.action !== "REPLACE") {
     window.location.replace("/users/login")
   }
-  let dashClass = "nav-item"
-  let stashClass = "nav-item"
+  let dashClass = "nav-item navbar-text"
+  let stashClass = "nav-item navbar-text"
   if(activePage === "dash") dashClass+= " active"
   if(activePage === "stash") stashClass+= " active"
   let rightTopbarContent, leftTopbarContent
   if(currentUser) {
     leftTopbarContent =
       <Fragment>
-        <li className={dashClass}>
-          <Link to="#" className="nav-link" to="/dash">{currentUser.username}</Link>
+        <li className="nav-item">
+          <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
+        </li>
+        <li className="nav-item navbar-text">
+          <span className="navbar-text">Welcome back, {currentUser.username}</span>
         </li>
         <li className={dashClass}>
           <Link to="#" className="nav-link" to="/dash">Dash</Link>
