@@ -1,14 +1,12 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import ErrorList from './ErrorList'
 
-const SignUpContainer = () => {
+const LoginContainer = () => {
   const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
+    login: "",
+    password: ""
   })
   const [errors, setErrors] = useState([])
   const [shouldRedirect, setShouldRedirect] = useState(false)
@@ -16,9 +14,9 @@ const SignUpContainer = () => {
     window.location.replace("/dash")
   }
 
-  const createUser = (registration) => {
+  const loginUser = formPayload => {
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    fetch('/users',
+    fetch('/users/login',
       {
         credentials: 'same-origin',
         method: "POST",
@@ -27,7 +25,7 @@ const SignUpContainer = () => {
           'Accept': 'application/json',
           'X-CSRF-Token': csrfToken
       },
-      body: JSON.stringify({user:registration})
+      body: JSON.stringify({user:formPayload})
     })
     .then(response => {
       if (response.ok) {
@@ -59,42 +57,33 @@ const SignUpContainer = () => {
   }
 
   const handleSubmit = event => {
-    event.preventDefault()
-    createUser(user)
+    event.preventDefault();
+    loginUser(user)
   }
 
-  return (
+  return(
     <Fragment>
-      <h2>Sign up</h2>
+      <h2>Log in</h2>
       <ErrorList errors={errors} />
       <form onSubmit={handleSubmit}>
         <label>
-          Username
-          <input autoFocus onChange={handleInput} type="text" name="username"/>
+          Email or Username
+          <input autoFocus type="text" onChange={handleInput} name="login" value={user.login}/>
         </label>
-
-        <label>
-          Email
-          <input onChange={handleInput} type="text" name="email"/>
-        </label>
-
         <label>
           Password
-          <input onChange={handleInput} type="password" name="password"/>
+          <input type="password" onChange={handleInput} name="password" value={user.password}/>
         </label>
 
         <label>
-          Password Confirmation
-          <input onChange={handleInput} type="password" name="password_confirmation"/>
+          Remember me
+          <input type="checkbox" name="remember_me" />
         </label>
-
-        <input type="submit" value="Sign Up" />
-        <p>
-          Already a signed up? <Link to="/users/login">Login</Link>
-        </p>
+        <input type="submit" value="Log in"/>
+        <Link to="/users/signup">Or sign up!</Link>
       </form>
     </Fragment>
   )
 }
 
-export default SignUpContainer;
+export default LoginContainer;
