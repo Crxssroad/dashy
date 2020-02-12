@@ -3,7 +3,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     user = User.new(user_params)
-
     if user.save
       sign_in user
       render json: user
@@ -20,7 +19,8 @@ class RegistrationsController < Devise::RegistrationsController
     :email,
     :password,
     :password_confirmation,
-    :remember_me
+    :remember_me,
+    :profile_photo
   )
   end
 end

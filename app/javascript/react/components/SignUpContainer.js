@@ -2,32 +2,34 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ErrorList from './ErrorList'
+import UserNewForm from './UserNewForm'
 
 const SignUpContainer = () => {
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
-  })
   const [errors, setErrors] = useState([])
   const [shouldRedirect, setShouldRedirect] = useState(false)
   if (shouldRedirect) {
     window.location.replace("/dash")
   }
 
-  const createUser = (registration) => {
+  const createUser = (registration, wipePassword) => {
+    let body = new FormData()
+    body.append("user[profile_photo]", registration.profile_photo)
+    body.append("user[username]", registration.username)
+    body.append("user[email]", registration.email)
+    body.append("user[password]", registration.password)
+    body.append("user[password_confirmation]", registration.password_confirmation)
+    debugger
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
     fetch('/users',
       {
         credentials: 'same-origin',
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Accept': 'image/jpeg',
           'X-CSRF-Token': csrfToken
       },
-      body: JSON.stringify({user:registration})
+      body: body
     })
     .then(response => {
       if (response.ok) {
@@ -41,78 +43,22 @@ const SignUpContainer = () => {
         setShouldRedirect(true)
       } else {
         setErrors(parsedBody)
-        setUser({
-          ...user,
-          password: "",
-          password_confirmation: ""
-        })
+        wipePassword()
       }
     })
     .catch(error => console.error(`Error in fetch ${error.message}`))
-  }
-
-  const handleInput = event => {
-    setUser({
-      ...user,
-      [event.currentTarget.name]: event.currentTarget.value
-    })
-  }
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    createUser(user)
   }
 
   return (
     <Fragment>
       <h2>Sign up</h2>
       <ErrorList errors={errors} />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username
-          <input autoFocus
-            onChange={handleInput}
-            type="text"
-            name="username"
-            value={user.username}
-          />
-        </label>
-
-        <label>
-          Email
-          <input
-            onChange={handleInput}
-            type="text"
-            name="email"
-            value={user.email}
-          />
-        </label>
-
-        <label>
-          Password
-          <input
-            onChange={handleInput}
-            type="password"
-            name="password"
-            value={user.password}
-          />
-        </label>
-
-        <label>
-          Password Confirmation
-          <input
-            onChange={handleInput}
-            type="password"
-            name="password_confirmation"
-            value={user.password_confirmation}
-          />
-        </label>
-
-        <input type="submit" value="Sign Up" />
-        <p>
-          Already a signed up? <Link to="/users/login">Login</Link>
-        </p>
-      </form>
+      <UserNewForm
+        createUser={createUser}
+      />
+      <p>
+        Already a signed up? <Link to="/users/login">Login</Link>
+      </p>
     </Fragment>
   )
 }
