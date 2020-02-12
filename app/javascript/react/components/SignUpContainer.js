@@ -70,22 +70,42 @@ const SignUpContainer = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Username
-          <input autoFocus onChange={handleInput} type="text" name="username"/>
+          <input autoFocus
+            onChange={handleInput}
+            type="text"
+            name="username"
+            value={user.username}
+          />
         </label>
 
         <label>
           Email
-          <input onChange={handleInput} type="text" name="email"/>
+          <input
+            onChange={handleInput}
+            type="text"
+            name="email"
+            value={user.email}
+          />
         </label>
 
         <label>
           Password
-          <input onChange={handleInput} type="password" name="password"/>
+          <input
+            onChange={handleInput}
+            type="password"
+            name="password"
+            value={user.password}
+          />
         </label>
 
         <label>
           Password Confirmation
-          <input onChange={handleInput} type="password" name="password_confirmation"/>
+          <input
+            onChange={handleInput}
+            type="password"
+            name="password_confirmation"
+            value={user.password_confirmation}
+          />
         </label>
 
         <input type="submit" value="Sign Up" />
