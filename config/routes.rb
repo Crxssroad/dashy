@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root 'homes#index'
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'},
-    path_names: { sign_in: 'sign-in', sign_up: 'sign-up'}
+    path_names: { sign_in: 'login', sign_up: 'signup', sign_out: 'logout'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  
+
   authenticate :user do
     get '/dash', to: 'homes#index'
     get '/stash', to: 'homes#index'
