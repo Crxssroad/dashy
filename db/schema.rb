@@ -40,12 +40,14 @@ ActiveRecord::Schema.define(version: 2020_02_12_234439) do
   end
 
   create_table "widgets", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.integer "position", null: false
     t.string "modulable_type"
     t.bigint "modulable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["modulable_type", "modulable_id"], name: "index_widgets_on_modulable_type_and_modulable_id"
+    t.index ["user_id"], name: "index_widgets_on_user_id"
   end
 
 end
