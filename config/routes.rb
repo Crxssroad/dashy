@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'},
     path_names: { sign_in: 'login', sign_up: 'signup', sign_out: 'logout'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/welcome', to: 'homes#index'
 
   authenticate :user do
     get '/dash', to: 'homes#index'
