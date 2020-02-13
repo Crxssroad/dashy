@@ -33,7 +33,7 @@ const JournalNewForm = ({ handleFormDisplay, errors, addNewJournal, editJournal,
 
       <label>
         Description
-        <textarea name="description" onChange={handleInput} value={journal.description}/>
+        <textarea name="description" onChange={handleInput}>{journal.description}</textarea>
       </label>
 
       <input type="submit" value={addNewJournal ? 'Create' : 'Save'} />
