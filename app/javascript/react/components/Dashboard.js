@@ -31,7 +31,7 @@ const Dashboard = () => {
   })
 
   return (
-    <h1>{widgetTiles}</h1>
+    <div className="dashboard-container">{widgetTiles}</div>
   )
 }
 
