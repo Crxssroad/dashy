@@ -11,11 +11,13 @@ const Sidebar = ({ activePath }) => {
       <Link to="/dash">
         <li className={dashClass}>
           <i className="fas fa-chalkboard"></i>
+          <div className="iconTextHover">Dash</div>
         </li>
       </Link>
       <Link to="/stash">
         <li className={stashClass}>
           <i className="fas fa-briefcase"></i>
+          <div className="iconTextHover">Stash</div>
         </li>
       </Link>
     </nav>
