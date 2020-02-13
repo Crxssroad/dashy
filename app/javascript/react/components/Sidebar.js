@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Sidebar = ({ activePath }) => {
   let dashClass = "side-bar-icon"
   let stashClass = "side-bar-icon"
-  if(activePath === "dash") dashClass+= " active-icon"
+  if(activePath === "dash" || activePath === "") dashClass+= " active-icon"
   if(activePath === "stash") stashClass+= " active-icon"
   return (
     <nav id="side-bar">
