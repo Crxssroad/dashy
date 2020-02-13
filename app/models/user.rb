@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
 
   has_many :journals
+  has_many :widgets
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
