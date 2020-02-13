@@ -5,9 +5,9 @@ import Dashboard from './Dashboard'
 import Stash from './Stash'
 import JournalsIndexContainer from './journal/JournalsIndexContainer'
 import JournalShowContainer from './journal/JournalShowContainer'
-import SignUpContainer from './SignUpContainer'
-import LoginContainer from './LoginContainer'
 import Sidebar from './Sidebar'
+import ModalForm from './ModalForm'
+import LandingPageContainer from './LandingPageContainer'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -45,7 +45,7 @@ const Topbar = props => {
   }
 
   if (shouldLogout && props.history.action !== "REPLACE") {
-    window.location.replace("/users/login")
+    window.location.replace("/welcome")
   }
 
   let togglerIcon =
@@ -56,8 +56,9 @@ const Topbar = props => {
   let stashClass = "nav-item navbar-text navbar-sidebar"
   if(activePath === "dash" || activePath === "") dashClass+= " active"
   if(activePath === "stash") stashClass+= " active"
-  let rightTopbarContent, leftTopbarContent
+  let rightTopbarContent, leftTopbarContent, sidebar
   if(currentUser) {
+    sidebar = <Sidebar activePath={activePath} />
     togglerIcon =
     <button className="navbar-toggler" style={{padding:0, border:'none'}} type="button" data-toggle="collapse" data-target=".dual-collapse2">
       <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
@@ -84,9 +85,9 @@ const Topbar = props => {
         </li>
       </Fragment>
   } else {
-    rightTopbarContent =
+    leftTopbarContent =
       <Fragment>
-        <li className="nav-item navbar-sidebar">
+        <li className="nav-item">
           <Link to="/users/login" className="nav-link">Login</Link>
         </li>
         <li className="nav-item">
@@ -114,13 +115,12 @@ const Topbar = props => {
           </div>
       </nav>
       <section className="display-area">
-        <Sidebar activePath={activePath} />
+        {sidebar}
         <Switch>
+          <Route exact path='/welcome' component={LandingPageContainer}/>
           <Route exact path='/' component={Dashboard}/>
           <Route exact path='/dash' component={Dashboard}/>
           <Route exact path='/stash' component={Stash}/>
-          <Route exact path='/users/signup' component={SignUpContainer}/>
-          <Route exact path='/users/login' component={LoginContainer}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
           <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
         </Switch>

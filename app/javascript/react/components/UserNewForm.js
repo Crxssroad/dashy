@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import Dropzone from 'react-dropzone'
 
-const UserNewForm = ({ createUser }) => {
+import ModalForm from './ModalForm'
+import ErrorList from './ErrorList'
+
+const UserNewForm = () => {
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -10,6 +13,56 @@ const UserNewForm = ({ createUser }) => {
     profile_photo: ""
   })
   const [uploadedPhoto, setUploadedPhoto] = useState([{}])
+  const [errors, setErrors] = useState([])
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+  if (shouldRedirect) {
+    window.location.replace("/dash")
+  }
+
+  const wipePassword = () => {
+    setUser({
+      ...user,
+      password: "",
+      password_confirmation: ""
+    })
+  }
+
+  const createUser = (registration) => {
+    let body = new FormData()
+    body.append("user[profile_photo]", registration.profile_photo)
+    body.append("user[username]", registration.username)
+    body.append("user[email]", registration.email)
+    body.append("user[password]", registration.password)
+    body.append("user[password_confirmation]", registration.password_confirmation)
+    const csrfToken = $('meta[name="csrf-token"]').attr('content');
+    fetch('/users',
+      {
+        credentials: 'same-origin',
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Accept': 'image/jpeg',
+          'X-CSRF-Token': csrfToken
+      },
+      body: body
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      if (!Array.isArray(parsedBody)) {
+        setShouldRedirect(true)
+      } else {
+        setErrors(parsedBody)
+        wipePassword()
+      }
+    })
+    .catch(error => console.error(`Error in fetch ${error.message}`))
+  }
 
   const handleInput = event => {
     setUser({
@@ -20,14 +73,7 @@ const UserNewForm = ({ createUser }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const wipePassword = () => {
-      setUser({
-        ...user,
-        password: "",
-        password_confirmation: ""
-      })
-    }
-    createUser(user, wipePassword)
+    createUser(user)
   }
 
   const handleFileUpload = (acceptedFiles) => {
@@ -39,61 +85,74 @@ const UserNewForm = ({ createUser }) => {
       profile_photo: acceptedFiles[0]
     })
   }
-
+  const errorList = <ErrorList errors={errors} />
   return(
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username
-        <input autoFocus
-          onChange={handleInput}
-          type="text"
-          name="username"
-          value={user.username}
-        />
-      </label>
-
-      <label>
-        Email
-        <input
-          onChange={handleInput}
-          type="text"
-          name="email"
-          value={user.email}
-        />
-      </label>
-
-      <label>
-        Password
-        <input
-          onChange={handleInput}
-          type="password"
-          name="password"
-          value={user.password}
-        />
-      </label>
-
-      <label>
-        Password Confirmation
-        <input
-          onChange={handleInput}
-          type="password"
-          name="password_confirmation"
-          value={user.password_confirmation}
-        />
-      </label>
-      <img src={uploadedPhoto[0].preview} />
-      <Dropzone onDrop={handleFileUpload}>
-           {({getRootProps, getInputProps}) => (
-             <section>
-               <div {...getRootProps()}>
-                 <input {...getInputProps()} />
-                 <p>Drag 'n' drop some files here, or click to select files</p>
-               </div>
-             </section>
-           )}
-         </Dropzone>
-      <input type="submit" value="Sign Up" />
-    </form>
+    <Fragment>
+      <div className="text-center">
+       <a href="#signupModal" data-toggle="modal">Sign Up</a>
+      </div>
+      <ModalForm type="signup">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input autoFocus
+              className="form-control"
+              placeholder="Username"
+              onChange={handleInput}
+              type="text"
+              name="username"
+              value={user.username}
+              />
+          </div>
+          <div className="form-group">
+            <input autoFocus
+              className="form-control"
+              placeholder="Email"
+              onChange={handleInput}
+              type="text"
+              name="email"
+              value={user.email}
+              />
+          </div>
+          <div className="form-group">
+            <input autoFocus
+              className="form-control"
+              placeholder="Password"
+              onChange={handleInput}
+              type="password"
+              name="password"
+              value={user.password}
+              />
+          </div>
+          <div className="form-group">
+            <input autoFocus
+              className="form-control"
+              placeholder="Confirm Password"
+              onChange={handleInput}
+              type="password"
+              name="password_confirmation"
+              value={user.password_confirmation}
+              />
+          </div>
+          <img src={uploadedPhoto[0].preview} />
+          <Dropzone onDrop={handleFileUpload}>
+            {({getRootProps, getInputProps}) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+          <input
+            className="btn btn-primary btn-lg btn-block login-btn"
+            type="submit"
+            value="Sign Up"
+            />
+        </form>
+        {errorList}
+      </ModalForm>
+    </Fragment>
   )
 }
 
