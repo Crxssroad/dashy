@@ -54,7 +54,7 @@ const Topbar = props => {
   </button>
   let dashClass = "nav-item navbar-text navbar-sidebar"
   let stashClass = "nav-item navbar-text navbar-sidebar"
-  if(activePath === "dash") dashClass+= " active"
+  if(activePath === "dash" || activePath === "") dashClass+= " active"
   if(activePath === "stash") stashClass+= " active"
   let rightTopbarContent, leftTopbarContent
   if(currentUser) {
