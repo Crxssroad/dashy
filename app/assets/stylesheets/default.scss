@@ -81,6 +81,54 @@ body {
   display: none;
 }
 
+.side-bar-icon {
+  font-size: 2rem;
+  list-style: none;
+  text-align: center;
+}
+
+.active-icon {
+  background-color: cadetblue;
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 2.95rem;
+}
+
+.widget-tile {
+  display: inline-flex;
+  width: 20rem;
+  height: 20rem;
+}
+
+.journal-widget {
+  width: 90%;
+  height: 90%;
+  border-radius: 3%;
+  margin: auto;
+  background-color: white;
+  h4 {
+    overflow: hidden;
+    margin:0;
+    height: 15%;
+    padding: 0.5rem;
+    color: white;
+    background-color: #20C0FA;
+    i {
+      float: right;
+    }
+  }
+  div {
+    padding: 0.5rem;
+    font-size: 1rem;
+    height: 85%;
+    overflow: scroll;
+    p {
+    }
+  }
+}
+
 // tablets
 @media only screen and (max-width: 768px) {
 
@@ -101,18 +149,4 @@ body {
       text-align: center;
     }
   }
-}
-.side-bar-icon {
-  font-size: 2rem;
-  list-style: none;
-  text-align: center;
-}
-
-.active-icon {
-  background-color: cadetblue;
-  color: white;
-}
-
-.navbar-brand {
-  font-size: 2.95rem;
 }
