@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import { Redirect } from 'react-router-dom'
 
 import JournalNewForm from './JournalNewForm';
 import JournalDetails from './JournalDetails';
