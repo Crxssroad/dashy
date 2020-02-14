@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import UserNewForm from './UserNewForm'
 import LoginForm from './LoginForm'
 
-const  LandingPageContainer = () => {
-  const [formType, setFormType] = useState(null)
+const  LandingPageContainer = ({user}) => {
 
   const imageCredit = <Fragment>
     <a
@@ -29,13 +28,28 @@ const  LandingPageContainer = () => {
     </a>
   </Fragment>
 
-  const buttonGroup = <div className="landing-page-buttons">
+  const buttonGroup = <Fragment>
     <LoginForm />
     <UserNewForm />
+  </Fragment>
+
+  const welcomeBackMessage = <Fragment>
+    <div className="card" style={{width: "18rem", backgroundColor: "rgba(255,255,255,.8)"}}>
+      <div className="card-body">
+        <p>
+          Welcome back, {user ? user.username : null}
+        </p>
+      </div>
+    </div>
+  </Fragment>
+
+  const display = <div className="landing-page-buttons">
+    {user ? welcomeBackMessage : buttonGroup}
   </div>
+
   return (
     <div className="landing-page">
-      {buttonGroup}
+      {display}
       {imageCredit}
     </div>
   )

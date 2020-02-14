@@ -187,6 +187,13 @@ body {
   }
 }
 
+.card-body {
+  text-align: center;
+  p {
+    font-family: 'Fredoka One', cursive;
+  }
+}
+
 // tablets
 @media only screen and (max-width: 768px) {
 

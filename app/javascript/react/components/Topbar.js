@@ -121,10 +121,10 @@ const Topbar = props => {
       </Fragment>
     rightTopbarContent =
       <Fragment>
-        <li className="nav-item navbar-text">
-          <span className="navbar-text">Welcome back, {currentUser.username}</span>
-        </li>
         <li className="nav-item">
+          <li className="nav-item navbar-text">
+            <span className="navbar-text">{currentUser.username}</span>
+          </li>
           <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
         </li>
       </Fragment>
@@ -151,8 +151,8 @@ const Topbar = props => {
       <section className="display-area">
         {sidebar}
         <Switch>
-          <Route exact path='/' component={LandingPageContainer}/>
-          <Route exact path='/welcome' component={LandingPageContainer}/>
+          <Route exact path='/' render={(props) => <LandingPageContainer user={currentUser} /> }/>
+          <Route exact path='/welcome' render={(props) => <LandingPageContainer user={currentUser} />}/>
           <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} /> }/>
           <Route exact path='/stash' component={Stash}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
