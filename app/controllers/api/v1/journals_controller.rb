@@ -34,6 +34,10 @@ class Api::V1::JournalsController < ApplicationController
   def destroy
     journal = Journal.find(params[:id])
     journal.destroy
+
+    if journal.destroyed?
+      journal.widgets.destroy_all
+    end
   end
 
   private
