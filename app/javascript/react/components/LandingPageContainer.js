@@ -35,7 +35,6 @@ const  LandingPageContainer = ({user}) => {
 
   const welcomeBackMessage = <Fragment>
     <div className="card" style={{width: "18rem", backgroundColor: "rgba(255,255,255,.8)"}}>
-      <img className="card-img-top" src={user ? user.profilePhoto : null} alt="user profile image" />
       <div className="card-body">
         <p>
           Welcome back, {user ? user.username : null}
