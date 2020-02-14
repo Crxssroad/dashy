@@ -23,4 +23,12 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     '/dash'
   end
+
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      redirect_to '/welcome'
+    end
+  end
 end

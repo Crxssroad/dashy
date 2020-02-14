@@ -5,14 +5,45 @@ import Dashboard from './Dashboard'
 import Stash from './Stash'
 import JournalsIndexContainer from './journal/JournalsIndexContainer'
 import JournalShowContainer from './journal/JournalShowContainer'
-import SignUpContainer from './SignUpContainer'
-import LoginContainer from './LoginContainer'
 import Sidebar from './Sidebar'
+import ModalForm from './ModalForm'
+import LandingPageContainer from './LandingPageContainer'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
   const [shouldLogout, setShouldLogout] = useState(false)
+  const [widgets, setWidgets] = useState([])
+  const [widgetErrors, setWidgetErrors] = useState([])
+
   const activePath = props.location.pathname.slice(1);
+
+  const addWidget = (payload) => {
+    payload.position = widgets.length
+    fetch('/api/v1/widgets', {
+      credentials: 'same-origin',
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+    })
+    .then(parsedBody => {
+      if (!Array.isArray(parsedBody)) {
+        setWidgets([...widgets, parsedBody])
+      } else {
+        setWidgetErrors(parsedBody)
+      }
+    })
+    .catch(error => console.error(`Error in journal post fetch ${error.message}`))
+  }
 
   useEffect(() => {
     fetch('/api/v1/users/current')
@@ -25,6 +56,19 @@ const Topbar = props => {
     })
     .then(parsedBody => {
       setCurrentUser(parsedBody)
+    })
+    .catch(error => `Error in fetch ${error.message}`)
+
+    fetch('/api/v1/widgets')
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      setWidgets(parsedBody)
     })
     .catch(error => `Error in fetch ${error.message}`)
   }, [])
@@ -45,7 +89,7 @@ const Topbar = props => {
   }
 
   if (shouldLogout && props.history.action !== "REPLACE") {
-    window.location.replace("/users/login")
+    window.location.replace("/welcome")
   }
 
   let togglerIcon =
@@ -56,8 +100,9 @@ const Topbar = props => {
   let stashClass = "nav-item navbar-text navbar-sidebar"
   if(activePath === "dash" || activePath === "") dashClass+= " active"
   if(activePath === "stash") stashClass+= " active"
-  let rightTopbarContent, leftTopbarContent
+  let rightTopbarContent, leftTopbarContent, sidebar
   if(currentUser) {
+    sidebar = <Sidebar activePath={activePath} addWidget={addWidget} errors={widgetErrors} />
     togglerIcon =
     <button className="navbar-toggler" style={{padding:0, border:'none'}} type="button" data-toggle="collapse" data-target=".dual-collapse2">
       <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
@@ -83,16 +128,6 @@ const Topbar = props => {
           <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
         </li>
       </Fragment>
-  } else {
-    rightTopbarContent =
-      <Fragment>
-        <li className="nav-item navbar-sidebar">
-          <Link to="/users/login" className="nav-link">Login</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/users/signup" className="nav-link">Sign Up</Link>
-        </li>
-      </Fragment>
   }
 
   return (
@@ -114,13 +149,12 @@ const Topbar = props => {
           </div>
       </nav>
       <section className="display-area">
-        <Sidebar activePath={activePath} />
+        {sidebar}
         <Switch>
-          <Route exact path='/' component={Dashboard}/>
-          <Route exact path='/dash' component={Dashboard}/>
+          <Route exact path='/welcome' component={LandingPageContainer}/>
+          <Route exact path='/' render={(props) => <Dashboard widgets={widgets} /> }/>
+          <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} /> }/>
           <Route exact path='/stash' component={Stash}/>
-          <Route exact path='/users/signup' component={SignUpContainer}/>
-          <Route exact path='/users/login' component={LoginContainer}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
           <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
         </Switch>

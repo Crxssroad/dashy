@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
 import ErrorList from './ErrorList'
+import ModalForm from './ModalForm'
 
 const LoginContainer = () => {
   const [user, setUser] = useState({
@@ -63,25 +64,42 @@ const LoginContainer = () => {
 
   return(
     <Fragment>
-      <h2>Log in</h2>
-      <ErrorList errors={errors} />
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email or Username
-          <input autoFocus type="text" onChange={handleInput} name="login" value={user.login}/>
-        </label>
-        <label>
-          Password
-          <input type="password" onChange={handleInput} name="password" value={user.password}/>
-        </label>
+     <a type="button" className="btn btn-primary" href="#loginModal" data-toggle="modal">Log In</a>
+      <ModalForm type="login" >
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input autoFocus
+              className="form-control"
+              placeholder="Email or Username"
+              onChange={handleInput}
+              type="text"
+              name="login"
+              value={user.login}
+            />
+          </div>
 
-        <label>
-          Remember me
-          <input type="checkbox" name="remember_me" />
-        </label>
-        <input type="submit" value="Log in"/>
-        <Link to="/users/signup">Or sign up!</Link>
-      </form>
+          <div className="form-group">
+            <input autoFocus
+              className="form-control"
+              placeholder="Password"
+              onChange={handleInput}
+              type="password"
+              name="password"
+              value={user.password}
+              />
+          </div>
+          <label>
+            <input type="checkbox" name="remember_me" />
+            Remember me
+          </label>
+          <input
+            className="btn btn-primary btn-lg btn-block login-btn"
+            type="submit"
+            value="Log In"
+          />
+        </form>
+        <ErrorList errors={errors} />
+      </ModalForm>
     </Fragment>
   )
 }

@@ -1,0 +1,31 @@
+.unsplash-badge-container {
+  float: right;
+  background-color:black;
+  color:white;
+  text-decoration:none;
+  padding:4px 6px;
+  font-family:-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, "Segoe UI", Arial, sans-serif;
+  font-size:12px;font-weight:bold;
+  line-height:1.2;
+  display:inline-block;
+  border-radius:3px;
+}
+
+.unsplash-svg-container {
+  display:inline-block;
+  padding:2px 3px;
+}
+
+.unsplash-svg {
+  height: 2rem;
+  width: 2.2rem;
+  position:relative;
+  vertical-align:middle;
+  top:-2px;
+  fill:white;
+}
+
+.unsplash-contributor-name {
+  display:inline-block;
+  padding:2px 3px;
+}
