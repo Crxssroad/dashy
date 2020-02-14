@@ -1,24 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import WidgetTile from './WidgetTile'
 
-const Dashboard = () => {
-  const [widgets, setWidgets] = useState([])
-
-  useEffect(() => {
-    fetch('/api/v1/widgets')
-    .then(response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        throw new Error(`${response.status} ${response.statusText}`)
-      }
-    })
-    .then(parsedBody => {
-      setWidgets(parsedBody)
-    })
-    .catch(error => `Error in fetch ${error.message}`)
-  }, [])
+const Dashboard = ({ widgets }) => {
 
   const widgetTiles = widgets.map(widget => {
     return(
@@ -31,7 +15,9 @@ const Dashboard = () => {
   })
 
   return (
-    <div className="dashboard-container">{widgetTiles}</div>
+    <Fragment>
+      <div className="dashboard-container">{widgetTiles}</div>
+    </Fragment>
   )
 }
 
