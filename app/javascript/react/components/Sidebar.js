@@ -7,15 +7,15 @@ const Sidebar = ({ activePath, addWidget, errors }) => {
   let dashClass = "side-bar-icon"
   let stashClass = "side-bar-icon"
   let addAWidgetButton
-
-  if(activePath === "dash" || activePath === "") {
+  debugger
+  if(activePath === "/dash") {
     dashClass+= " active-icon"
     addAWidgetButton = <li className="side-bar-icon">
         <NewWidgetForm addWidget={addWidget} errors={errors} />
         <div className="iconTextHover">Add a widget</div>
       </li>
   }
-  if(activePath === "stash") stashClass+= " active-icon"
+  if(activePath === "/stash") stashClass+= " active-icon"
   return (
     <nav id="side-bar">
       <Link to="/dash">
