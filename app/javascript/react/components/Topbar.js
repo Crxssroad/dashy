@@ -15,7 +15,7 @@ const Topbar = props => {
   const [widgets, setWidgets] = useState([])
   const [widgetErrors, setWidgetErrors] = useState([])
 
-  const activePath = props.location.pathname.slice(1);
+  const activePath = props.location.pathname;
 
   const addWidget = (payload) => {
     payload.position = widgets.length
@@ -98,8 +98,8 @@ const Topbar = props => {
   </button>
   let dashClass = "nav-item navbar-text navbar-sidebar"
   let stashClass = "nav-item navbar-text navbar-sidebar"
-  if(activePath === "dash" || activePath === "") dashClass+= " active"
-  if(activePath === "stash") stashClass+= " active"
+  if(activePath === "/dash") dashClass+= " active"
+  if(activePath === "/stash") stashClass+= " active"
   let rightTopbarContent, leftTopbarContent, sidebar
   if(currentUser) {
     sidebar = <Sidebar activePath={activePath} addWidget={addWidget} errors={widgetErrors} />
