@@ -7,7 +7,7 @@ const Sidebar = ({ activePath, addWidget, errors }) => {
   let dashClass = "side-bar-icon"
   let stashClass = "side-bar-icon"
   let addAWidgetButton
-  debugger
+
   if(activePath === "/dash") {
     dashClass+= " active-icon"
     addAWidgetButton = <li className="side-bar-icon">
