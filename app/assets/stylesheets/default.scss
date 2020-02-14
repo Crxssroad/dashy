@@ -57,6 +57,10 @@ body {
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+}
+
 .top-bar-profile-photo {
   height: 4rem;
   width: 4rem;
@@ -154,6 +158,31 @@ body {
     height: 85%;
     overflow: scroll;
     p {
+    }
+  }
+}
+
+.modalform-text {
+  margin: 0;
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+.landing-page {
+  height: 100vh;
+  width: inherit;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://dashy-production.s3.amazonaws.com/defaults/samsommer-vddccTqwal8-unsplash.jpg');
+  .landing-page-buttons {
+    display: flex;
+    height: calc(100% - 44px);
+    align-items: center;
+    justify-content: center;
+    a {
+      display: inline-flex;
+      margin: 2rem;
+      font-family: 'Fredoka One', cursive;
     }
   }
 }

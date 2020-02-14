@@ -88,9 +88,8 @@ const UserNewForm = () => {
   const errorList = <ErrorList errors={errors} />
   return(
     <Fragment>
-      <div className="text-center">
-       <a href="#signupModal" data-toggle="modal">Sign Up</a>
-      </div>
+     <a type="button" className="btn btn-primary" href="#signupModal" data-toggle="modal">Sign Up</a>
+
       <ModalForm type="signup">
         <form onSubmit={handleSubmit}>
           <div className="form-group">

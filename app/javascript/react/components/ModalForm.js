@@ -31,6 +31,12 @@ const ModalForm = (props) => {
       </a>
     </Fragment>
   }
+
+  if (props.type === "widget") {
+    id = "widgetModal"
+    title = "Add a New Widget"
+  }
+
   return (
     <Fragment>
       <div id={id} className="modal fade">

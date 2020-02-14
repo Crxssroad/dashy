@@ -64,9 +64,7 @@ const LoginContainer = () => {
 
   return(
     <Fragment>
-      <div className="text-center">
-       <a href="#loginModal" data-toggle="modal">Log In</a>
-      </div>
+     <a type="button" className="btn btn-primary" href="#loginModal" data-toggle="modal">Log In</a>
       <ModalForm type="login" >
         <form onSubmit={handleSubmit}>
           <div className="form-group">
