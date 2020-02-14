@@ -151,8 +151,8 @@ const Topbar = props => {
       <section className="display-area">
         {sidebar}
         <Switch>
+          <Route exact path='/' component={LandingPageContainer}/>
           <Route exact path='/welcome' component={LandingPageContainer}/>
-          <Route exact path='/' render={(props) => <Dashboard widgets={widgets} /> }/>
           <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} /> }/>
           <Route exact path='/stash' component={Stash}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
