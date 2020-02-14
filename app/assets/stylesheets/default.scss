@@ -187,6 +187,12 @@ body {
   }
 }
 
+.card-body {
+  p {
+    font-family: 'Fredoka One', cursive;
+  }
+}
+
 // tablets
 @media only screen and (max-width: 768px) {
 
