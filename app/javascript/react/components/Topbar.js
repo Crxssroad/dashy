@@ -122,6 +122,9 @@ const Topbar = props => {
     rightTopbarContent =
       <Fragment>
         <li className="nav-item">
+          <li className="nav-item navbar-text">
+            <span className="navbar-text">{currentUser.username}</span>
+          </li>
           <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
         </li>
       </Fragment>
