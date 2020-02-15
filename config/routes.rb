@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :stashes, only: [:index]
       resources :journals, only: [:index, :show, :create, :update, :destroy]
       get '/users/current'
-      resources :widgets, only: [:index, :create]
+      resources :widgets, only: [:index, :create, :destroy]
       resources :weathers, only: [:create]
     end
   end
