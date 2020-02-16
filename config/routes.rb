@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get '/users/current'
       resources :widgets, only: [:index, :create, :destroy]
       resources :weathers, only: [:create]
+      resources :weather_settings, only: [:create]
     end
   end
 end
