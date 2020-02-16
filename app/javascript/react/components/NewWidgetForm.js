@@ -5,13 +5,19 @@ import ErrorList from './ErrorList'
 import WidgetForm from './pojos/widgetForm'
 
 const NewWidgetForm = ({ addWidget, errors }) => {
-  const [widget, setWidget] = useState({
+  const defaultWidget = {
     position: "",
     modulable_type: "",
     modulable_id: ""
-  })
+  }
+  const [widget, setWidget] = useState(defaultWidget)
   const [fetchedStash, setFetchedStash] = useState([])
   const stashableWidgets = ["Journal"]
+  const optionalSettingsWidgets = ["WeatherSetting"]
+
+  const clearForm = () => {
+    setWidget(defaultWidget)
+  }
 
   const updateFetchedStash = (newItem) => {
     setFetchedStash([...fetchedStash, newItem])
@@ -42,12 +48,12 @@ const NewWidgetForm = ({ addWidget, errors }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    addWidget(widget)
+    addWidget(widget, clearForm)
   }
 
   const errorList = <ErrorList errors={errors} />
 
-  let options, subOptions
+  let addButton, options, subOptions
 
   if (stashableWidgets.includes(widget.modulable_type)) {
 
@@ -60,13 +66,25 @@ const NewWidgetForm = ({ addWidget, errors }) => {
         <option defaultValue>(none)</option>
         {selectOptions}
       </select>
-    const dynamicWidgetForm = WidgetForm.load(widget.modulable_type, updateFetchedStash, addWidget)
+    const dynamicWidgetForm = WidgetForm.load_stashable(widget.modulable_type, updateFetchedStash, addWidget)
     options = <div className="form-group">
       <p className="modalform-text">Select a {widget.modulable_type}</p>
       {selectBox}
     </div>
     subOptions = <Fragment>
       <p className="modalform-text">or create a new one!</p>
+      {dynamicWidgetForm}
+    </Fragment>
+    addButton = <input
+      className="btn btn-primary btn-lg btn-block login-btn"
+      type="submit"
+      value="Add"
+    />
+  }
+
+  if (optionalSettingsWidgets.includes(widget.modulable_type)) {
+    const dynamicWidgetForm = WidgetForm.load_optional(widget.modulable_type, addWidget)
+    subOptions = <Fragment>
       {dynamicWidgetForm}
     </Fragment>
   }
@@ -84,15 +102,11 @@ const NewWidgetForm = ({ addWidget, errors }) => {
             <select onChange={handleInput} className="custom-select" name="modulable_type">
               <option defaultValue>Select a widget type</option>
               <option value="Journal">Journal</option>
-              <option value="Weather">Weather</option>
+              <option value="WeatherSetting">Weather</option>
             </select>
           </div>
           {options}
-          <input
-            className="btn btn-primary btn-lg btn-block login-btn"
-            type="submit"
-            value="Add"
-            />
+          {addButton}
         </form>
         {errorList}
         {subOptions}
