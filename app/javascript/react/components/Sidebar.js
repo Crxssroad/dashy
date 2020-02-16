@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 
 import NewWidgetForm from './NewWidgetForm'
 
-const Sidebar = ({ activePath, addWidget, errors }) => {
+const Sidebar = ({ activePath, addWidget, toggleEditMode, editMode, errors }) => {
   let dashClass = "side-bar-icon"
   let stashClass = "side-bar-icon"
-  let addAWidgetButton
+
+  let addAWidgetButton, toggleEditButton
 
   if(activePath === "/dash") {
     dashClass+= " active-icon"
@@ -14,6 +15,17 @@ const Sidebar = ({ activePath, addWidget, errors }) => {
         <NewWidgetForm addWidget={addWidget} errors={errors} />
         <div className="iconTextHover">Add a widget</div>
       </li>
+    toggleEditButton = <li className="side-bar-icon" onClick={toggleEditMode}>
+      <i className="fas fa-lock"></i>
+      <div className="iconTextHover">Toggle Edit Mode</div>
+    </li>
+
+    if(editMode) {
+      toggleEditButton = <li className="side-bar-icon" onClick={toggleEditMode}>
+        <i className="fas fa-lock-open"></i>
+        <div className="iconTextHover">Toggle Edit Mode</div>
+      </li>
+    }
   }
   if(activePath === "/stash") stashClass+= " active-icon"
   return (
@@ -31,6 +43,7 @@ const Sidebar = ({ activePath, addWidget, errors }) => {
         </li>
       </Link>
       {addAWidgetButton}
+      {toggleEditButton}
     </nav>
   )
 }

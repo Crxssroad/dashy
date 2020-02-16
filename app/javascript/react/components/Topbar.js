@@ -14,6 +14,10 @@ const Topbar = props => {
   const [shouldLogout, setShouldLogout] = useState(false)
   const [widgets, setWidgets] = useState([])
   const [widgetErrors, setWidgetErrors] = useState([])
+  const [editMode, setEditMode] = useState(false)
+  const toggleEditMode = () => {
+    setEditMode(!editMode)
+  }
 
   const activePath = props.location.pathname;
 
@@ -43,6 +47,24 @@ const Topbar = props => {
       }
     })
     .catch(error => console.error(`Error in journal post fetch ${error.message}`))
+  }
+
+  const deleteWidget = (widgetId) => {
+    fetch(`/api/v1/widgets/${widgetId}`, {
+      credentials: 'same-origin',
+      method: "DELETE"
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+    })
+    .then(parsedBody => {
+      setWidgets(widgets.filter(widget => widget.id !== parsedBody.id))
+    })
+    .catch(error => console.error(`Error in widget delete fetch ${error.message}`))
   }
 
   useEffect(() => {
@@ -102,7 +124,7 @@ const Topbar = props => {
   if(activePath === "/stash") stashClass+= " active"
   let rightTopbarContent, leftTopbarContent, sidebar
   if(currentUser) {
-    sidebar = <Sidebar activePath={activePath} addWidget={addWidget} errors={widgetErrors} />
+    sidebar = <Sidebar activePath={activePath} addWidget={addWidget} toggleEditMode={toggleEditMode}  editMode={editMode} errors={widgetErrors} />
     togglerIcon =
     <button className="navbar-toggler" style={{padding:0, border:'none'}} type="button" data-toggle="collapse" data-target=".dual-collapse2">
       <img className="top-bar-profile-photo" src={currentUser.profilePhoto} />
@@ -153,7 +175,7 @@ const Topbar = props => {
         <Switch>
           <Route exact path='/' render={(props) => <LandingPageContainer user={currentUser} /> }/>
           <Route exact path='/welcome' render={(props) => <LandingPageContainer user={currentUser} />}/>
-          <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} /> }/>
+          <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} deleteWidget={deleteWidget} editMode={editMode} /> }/>
           <Route exact path='/stash' component={Stash}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
           <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>

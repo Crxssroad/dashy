@@ -19,6 +19,14 @@ class Api::V1::WidgetsController < ApplicationController
     end
   end
 
+  def destroy
+    widget = Widget.find(params[:id])
+    widget.destroy
+    if widget.destroyed?
+      render json: widget
+    end
+  end
+
   def widget_params
     params.require(:widget).permit(:position, :modulable_type, :modulable_id)
   end
