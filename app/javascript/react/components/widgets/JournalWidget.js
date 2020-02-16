@@ -2,7 +2,7 @@ import React from 'react'
 
 const JournalWidget = ({ journal }) => {
   return(
-    <div className="journal-widget">
+    <div className="journal-widget widget-child">
       <h4>
         {journal.title}
         <i className="fas fa-book"></i>

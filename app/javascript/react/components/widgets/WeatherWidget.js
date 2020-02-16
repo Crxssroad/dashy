@@ -103,7 +103,7 @@ const WeatherWidget = ({ settings }) => {
   }
 
   return (
-    <div className="weather-widget">
+    <div className="weather-widget widget-child">
       {display}
     </div>
   )
