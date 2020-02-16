@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :journals, only: [:index, :show, :create, :update, :destroy]
       get '/users/current'
       resources :widgets, only: [:index, :create]
+      resources :weathers, only: [:create]
     end
   end
 end

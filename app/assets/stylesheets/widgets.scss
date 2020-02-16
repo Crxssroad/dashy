@@ -1,0 +1,48 @@
+$journal-color: #20C0FA;
+
+.journal-widget {
+  width: 90%;
+  height: 90%;
+  border-radius: 3%;
+  margin: auto;
+  background-color: white;
+  padding-bottom: 0.5rem;
+  h4 {
+    overflow: hidden;
+    margin:0;
+    height: 15%;
+    padding: 0.5rem;
+    color: white;
+    background-color: $journal-color;
+    i {
+      float: right;
+    }
+  }
+  div {
+    padding: 0.5rem;
+    font-size: 1rem;
+    height: 85%;
+    overflow: scroll;
+  }
+}
+
+.weather-widget {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 90%;
+  margin: auto;
+  background-color: #2A2A2C;
+  color: white;
+  padding: 0.5rem;
+  section {
+    p {
+      margin: 0;
+  }
+  div {
+    font-size: 1rem;
+    height: 85%;
+    overflow: scroll;
+    }
+  }
+}
