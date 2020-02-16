@@ -84,6 +84,7 @@ const NewWidgetForm = ({ addWidget, errors }) => {
             <select onChange={handleInput} className="custom-select" name="modulable_type">
               <option defaultValue>Select a widget type</option>
               <option value="Journal">Journal</option>
+              <option value="Weather">Weather</option>
             </select>
           </div>
           {options}
