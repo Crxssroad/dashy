@@ -20,7 +20,11 @@ class Api::V1::WidgetsController < ApplicationController
   end
 
   def destroy
+    optional_settings_widgets = ["WeatherSetting"]
     widget = Widget.find(params[:id])
+    if optional_settings_widgets.include?(widget.modulable.class.name)
+      widget.modulable.destroy
+    end
     widget.destroy
     if widget.destroyed?
       render json: widget
