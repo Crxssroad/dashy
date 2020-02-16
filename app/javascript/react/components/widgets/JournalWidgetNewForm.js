@@ -60,7 +60,7 @@ const JournalWidgetNewForm = ({ updateFetchedStash, addWidget }) => {
         <input placeholder="Title" className="form-control" name="title" type="text" onChange={handleInput} value={journal.title}/>
       </div>
       <div className="form-group">
-        <textarea placeholder="Description" className="form-control" name="description" onChange={handleInput} value={journal.description} />
+        <textarea placeholder="Description(optional)" className="form-control" name="description" onChange={handleInput} value={journal.description} />
       </div>
 
       <input className="btn btn-block" type="submit" value="Add New Journal" />
