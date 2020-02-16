@@ -21,7 +21,7 @@ const Topbar = props => {
 
   const activePath = props.location.pathname;
 
-  const addWidget = (payload) => {
+  const addWidget = (payload, clearForm) => {
     payload.position = widgets.length
     fetch('/api/v1/widgets', {
       credentials: 'same-origin',
@@ -41,6 +41,9 @@ const Topbar = props => {
     })
     .then(parsedBody => {
       if (!Array.isArray(parsedBody)) {
+        $('#widgetModal').modal('hide')
+        if (clearForm) clearForm()
+        setWidgetErrors([])
         setWidgets([...widgets, parsedBody])
       } else {
         setWidgetErrors(parsedBody)
