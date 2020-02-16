@@ -8,7 +8,7 @@ class Widget {
     if (type === "Journal") {
       return <JournalWidget journal={content} />
     }
-    if (type === "Weather") {
+    if (type === "WeatherSetting") {
       return <WeatherWidget settings={content} />
     }
   }
