@@ -4,6 +4,7 @@ $journal-color: #20C0FA;
 
 body {
   background-color: $bg_background;
+  height: 100vh;
 }
 
 .top-bar-bg {
@@ -80,6 +81,7 @@ body {
 
 #side-bar {
   background-color: #FFFF;
+  height: 100vh;
   border-bottom-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
 
