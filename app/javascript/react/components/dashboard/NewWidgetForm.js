@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
-import ModalForm from './ModalForm'
-import ErrorList from './ErrorList'
-import WidgetForm from './pojos/widgetForm'
+import ModalForm from '../ModalForm'
+import ErrorList from '../ErrorList'
+import WidgetForm from '../pojos/widgetForm'
 
 const NewWidgetForm = ({ addWidget, errors }) => {
   const defaultWidget = {

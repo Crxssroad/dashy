@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd'
 
-import Widget from './pojos/widget'
+import Widget from '../pojos/widget'
 
 const WidgetTile = ({ type, mod, handleDelete, editMode, moveWidget, index }) => {
   let wid = Widget.load(type, mod, index)

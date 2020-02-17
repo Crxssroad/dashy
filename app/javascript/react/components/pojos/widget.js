@@ -1,8 +1,8 @@
 import React from 'react'
 
-import JournalWidget from '../widgets/JournalWidget'
-import WeatherWidget from '../widgets/WeatherWidget'
-import RSSWidget from '../widgets/RSSWidget'
+import JournalWidget from '../dashboard/widgets/JournalWidget'
+import WeatherWidget from '../dashboard/widgets/WeatherWidget'
+import RSSWidget from '../dashboard/widgets/RSSWidget'
 
 class Widget {
   static load(type, content, parentIndex) {

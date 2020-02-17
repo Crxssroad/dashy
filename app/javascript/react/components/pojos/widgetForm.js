@@ -1,8 +1,8 @@
 import React from 'react'
 
-import JournalWidgetNewForm from '../widgets/JournalWidgetNewForm'
-import WeatherWidgetNewForm from '../widgets/WeatherWidgetNewForm'
-import RSSWidgetNewForm from '../widgets/RSSWidgetNewForm'
+import JournalWidgetNewForm from '../dashboard/widgets/JournalWidgetNewForm'
+import WeatherWidgetNewForm from '../dashboard/widgets/WeatherWidgetNewForm'
+import RSSWidgetNewForm from '../dashboard/widgets/RSSWidgetNewForm'
 
 class WidgetForm {
   static load_stashable(type, updateFetchedStash, addWidget) {

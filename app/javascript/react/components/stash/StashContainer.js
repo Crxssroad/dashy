@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import StashTile from './StashTile';
+import Sidebar from '../Sidebar'
 
-const Stash = () => {
+const StashContainer = () => {
   const [journals, setJournals] = useState([])
 
   useEffect(() => {
@@ -21,13 +23,16 @@ const Stash = () => {
   }, [])
 
   return(
-    <ul>
-      <StashTile
-        type="journals"
-        content={journals}
-      />
-    </ul>
+    <Fragment>
+      <Sidebar rootPath="/stash" />
+        <ul>
+          <StashTile
+            type="journals"
+            content={journals}
+          />
+        </ul>
+    </Fragment>
   )
 }
 
-export default Stash;
+export default StashContainer;
