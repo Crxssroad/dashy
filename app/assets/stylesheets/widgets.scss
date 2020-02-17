@@ -1,12 +1,16 @@
 $journal-color: #20C0FA;
 
-.journal-widget {
+.widget-child {
   width: 90%;
   height: 90%;
+  margin: 1rem auto auto;
+  background-color: aliceblue;
+}
+
+.journal-widget {
   border-radius: 3%;
-  margin: auto;
   background-color: white;
-  padding-bottom: 0.5rem;
+  // padding-bottom: 0.5rem;
   h4 {
     overflow: hidden;
     margin:0;
@@ -29,9 +33,6 @@ $journal-color: #20C0FA;
 .weather-widget {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  height: 90%;
-  margin: auto;
   background-color: #2A2A2C;
   color: white;
   padding: 0.5rem;
@@ -44,5 +45,30 @@ $journal-color: #20C0FA;
     height: 85%;
     overflow: scroll;
     }
+  }
+}
+
+.rss-widget {
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: peachpuff;
+  h4 {
+    height: 20%;
+    text-align: center;
+  }
+  i {
+    float: right;
+    color: orange;
+  }
+  img {
+    max-width: 5rem;
+  }
+  .carousel-item {
+    padding: 0.3rem;
+    border-radius: 1rem;
+    min-height: 13rem;
+    max-height: 13rem;
+    overflow: scroll;
+    background-color: white;
   }
 }

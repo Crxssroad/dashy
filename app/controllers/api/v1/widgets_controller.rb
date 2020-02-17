@@ -43,6 +43,8 @@ class Api::V1::WidgetsController < ApplicationController
     end
   end
 
+  private
+
   def widget_params
     params.require(:widget).permit(:position, :modulable_type, :modulable_id, :old_position, :new_position)
   end

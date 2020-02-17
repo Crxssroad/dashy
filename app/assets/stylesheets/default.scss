@@ -102,6 +102,7 @@ body {
   list-style: none;
   text-align: center;
   .iconTextHover {
+    z-index: 100;
     opacity: 0;
     background-color: #FFFF;
     position:absolute;

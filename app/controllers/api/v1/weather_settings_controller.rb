@@ -11,6 +11,8 @@ class Api::V1::WeatherSettingsController < ApplicationController
     end
   end
 
+  private
+  
   def weather_settings_params
     params.require(:weather_setting).permit(:latitude, :longitude, :custom)
   end

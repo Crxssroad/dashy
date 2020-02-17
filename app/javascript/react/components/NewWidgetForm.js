@@ -13,7 +13,7 @@ const NewWidgetForm = ({ addWidget, errors }) => {
   const [widget, setWidget] = useState(defaultWidget)
   const [fetchedStash, setFetchedStash] = useState([])
   const stashableWidgets = ["Journal"]
-  const optionalSettingsWidgets = ["WeatherSetting"]
+  const optionalSettingsWidgets = ["WeatherSetting", "RssFeed"]
 
   const clearForm = () => {
     setWidget(defaultWidget)
@@ -103,6 +103,7 @@ const NewWidgetForm = ({ addWidget, errors }) => {
               <option defaultValue>Select a widget type</option>
               <option value="Journal">Journal</option>
               <option value="WeatherSetting">Weather</option>
+              <option value="RssFeed">RSS</option>
             </select>
           </div>
           {options}

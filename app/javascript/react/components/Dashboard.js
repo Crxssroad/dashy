@@ -13,12 +13,11 @@ const Dashboard = ({ widgets, deleteWidget, editMode, moveWidget }) => {
       <WidgetTile
         handleDelete={handleDelete}
         editMode={editMode}
-        key={index}
+        key={widget.id}
         type={widget.modulable_type}
         mod={widget.module}
         index={index}
         moveWidget={moveWidget}
-        id={widget.id}
       />
     )
   })

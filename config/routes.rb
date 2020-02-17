@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       patch '/widgets/reorder'
       resources :weathers, only: [:create]
       resources :weather_settings, only: [:create]
+      resources :rss_feeds, only: [:create]
     end
   end
 end
