@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get '/stash', to: 'homes#index'
     get '/stash/journals', to: 'homes#index'
     get '/stash/journals/:id', to: 'homes#index'
+    get '/test', to: 'homes#index'
   end
 
   namespace 'api' do
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
       resources :journals, only: [:index, :show, :create, :update, :destroy]
       get '/users/current'
       resources :widgets, only: [:index, :create, :destroy]
+      patch '/widgets/reorder'
       resources :weathers, only: [:create]
       resources :weather_settings, only: [:create]
     end
