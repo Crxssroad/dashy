@@ -31,20 +31,20 @@ const LoginContainer = () => {
     .then(response => {
       if (response.ok) {
         return response.json()
-      } else {
-        throw new Error(`${response.status} ${response.statusText}`)
-      }
-    })
-    .then(parsedBody => {
-      if (!Array.isArray(parsedBody)) {
-        setShouldRedirect(true)
-      } else {
-        setErrors(parsedBody)
+      } else if (response.status === 401 && response.statusText){
+        setErrors(["Invalid login or password"])
         setUser({
           ...user,
           password: "",
           password_confirmation: ""
         })
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      if (parsedBody) {
+        setShouldRedirect(true)
       }
     })
     .catch(error => console.error(`Error in fetch ${error.message}`))
@@ -66,6 +66,7 @@ const LoginContainer = () => {
     <Fragment>
      <a type="button" className="btn btn-primary" href="#loginModal" data-toggle="modal">Log In</a>
       <ModalForm type="login" >
+        <ErrorList errors={errors} />
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input autoFocus
@@ -98,7 +99,6 @@ const LoginContainer = () => {
             value="Log In"
           />
         </form>
-        <ErrorList errors={errors} />
       </ModalForm>
     </Fragment>
   )
