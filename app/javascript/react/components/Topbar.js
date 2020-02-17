@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { Route, Switch, Link, Redirect } from 'react-router-dom';
 
 import Dashboard from './Dashboard'
@@ -8,6 +8,7 @@ import JournalShowContainer from './journal/JournalShowContainer'
 import Sidebar from './Sidebar'
 import ModalForm from './ModalForm'
 import LandingPageContainer from './LandingPageContainer'
+import DashTest from './DashTest'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -19,6 +20,50 @@ const Topbar = props => {
     setEditMode(!editMode)
   }
 
+  const moveWidget = useCallback(
+      (dragIndex, hoverIndex) => {
+        const dragWidget = widgets[dragIndex]
+        const newOrder = widgets.map((widget, index, oldOrder) => {
+          if (index === hoverIndex) {
+            return oldOrder[dragIndex]
+          }
+          if (index === dragIndex) {
+            return oldOrder[hoverIndex]
+          }
+          return widget
+        })
+        const liveUpdate = () => {
+          setWidgets(newOrder)
+        }
+        updateOrder({dragIndex: dragIndex, hoverIndex: hoverIndex}, liveUpdate)
+      },
+      [widgets],
+  )
+
+  const updateOrder = (payload, liveUpdate) => {
+    fetch('/api/v1/widgets/reorder', {
+      credentials: 'same-origin',
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      if (!Array.isArray(parsedBody)) {
+        liveUpdate()
+      }
+    })
+    .catch(error => console.error(`Error in widget order patch ${error.message}`))
+  }
   const activePath = props.location.pathname;
 
   const addWidget = (payload, clearForm) => {
@@ -178,8 +223,9 @@ const Topbar = props => {
         <Switch>
           <Route exact path='/' render={(props) => <LandingPageContainer user={currentUser} /> }/>
           <Route exact path='/welcome' render={(props) => <LandingPageContainer user={currentUser} />}/>
-          <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} deleteWidget={deleteWidget} editMode={editMode} /> }/>
+          <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} moveWidget={moveWidget} deleteWidget={deleteWidget} editMode={editMode} /> }/>
           <Route exact path='/stash' component={Stash}/>
+          <Route exact path='/test' component={DashTest}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
           <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
         </Switch>

@@ -1,8 +1,15 @@
 import React, { useState, useEffect, Fragment } from 'react'
+import { useDrag } from 'react-dnd'
 import ReactAnimatedWeather from 'react-animated-weather'
 
-const WeatherWidget = ({ settings }) => {
+const WeatherWidget = ({ settings, parentIndex }) => {
   const [weatherRecord, setWeatherRecord] = useState(null)
+  const [{isDragging}, drag] = useDrag({
+    item: { type: 'WidgetChild', parentIndex: parentIndex },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  })
   let display = <p className="ellipsis">Loading<span>.</span><span>.</span><span>.</span></p>
   let weather
   if (weatherRecord) {
@@ -103,7 +110,13 @@ const WeatherWidget = ({ settings }) => {
   }
 
   return (
-    <div className="weather-widget widget-child">
+    <div className="weather-widget widget-child"
+      ref={drag}
+      style={{
+        opacity: isDragging ? 0.5 : 1,
+        cursor: 'move',
+      }}
+    >
       {display}
     </div>
   )
