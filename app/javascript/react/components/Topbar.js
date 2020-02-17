@@ -8,7 +8,6 @@ import JournalShowContainer from './journal/JournalShowContainer'
 import Sidebar from './Sidebar'
 import ModalForm from './ModalForm'
 import LandingPageContainer from './LandingPageContainer'
-import DashTest from './DashTest'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -225,7 +224,6 @@ const Topbar = props => {
           <Route exact path='/welcome' render={(props) => <LandingPageContainer user={currentUser} />}/>
           <Route exact path='/dash' render={(props) => <Dashboard widgets={widgets} moveWidget={moveWidget} deleteWidget={deleteWidget} editMode={editMode} /> }/>
           <Route exact path='/stash' component={Stash}/>
-          <Route exact path='/test' component={DashTest}/>
           <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
           <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
         </Switch>

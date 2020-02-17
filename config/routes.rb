@@ -10,7 +10,6 @@ Rails.application.routes.draw do
     get '/stash', to: 'homes#index'
     get '/stash/journals', to: 'homes#index'
     get '/stash/journals/:id', to: 'homes#index'
-    get '/test', to: 'homes#index'
   end
 
   namespace 'api' do
