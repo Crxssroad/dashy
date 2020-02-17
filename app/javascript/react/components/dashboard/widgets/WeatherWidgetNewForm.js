@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import ErrorList from '../ErrorList'
+import ErrorList from '../../ErrorList'
 
 const WeatherWidgetNewForm = ({ updateFetchedStash, addWidget }) => {
   let defaultWeatherSettings = {

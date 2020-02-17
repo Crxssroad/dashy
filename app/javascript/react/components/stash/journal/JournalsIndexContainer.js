@@ -7,7 +7,7 @@ const JournalsIndexContainer = () => {
   const [journals, setJournals] = useState([]);
   const [errors, setErrors] = useState([]);
   const [newClicked, setNewClicked] = useState(false);
-
+  debugger
   useEffect(() => {
     fetch('/api/v1/stashes')
     .then(response => {
