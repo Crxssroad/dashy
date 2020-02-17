@@ -15,8 +15,6 @@ const WeatherWidget = ({ settings, parentIndex }) => {
   if (weatherRecord) {
     weather = weatherRecord.data
     let current = weather.currently
-    console.log('Weather:', weather)
-    console.log('Current', current)
     if (current) {
       const icon = current.icon.toUpperCase().replace(/-/g, '_')
       let skycon = <ReactAnimatedWeather
@@ -68,9 +66,7 @@ const WeatherWidget = ({ settings, parentIndex }) => {
         </section>
       </Fragment>
     } else {
-      display = <p>There was an error</p>
-        console.log('Weather:', weather)
-        console.log('Current', current)
+      display = <p>There was an error retrieving the weather data. Try again later.</p>
     }
   }
 
@@ -89,7 +85,6 @@ const WeatherWidget = ({ settings, parentIndex }) => {
     if (!navigator.geolocation) {
       display = <p>Geolocation is not supported by your browser</p>
     } else {
-      display = <p>Locating…</p>
       navigator.geolocation.getCurrentPosition(success, error)
     }
   }, [])
