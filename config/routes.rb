@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :weathers, only: [:create]
       resources :weather_settings, only: [:create]
       resources :rss_feeds, only: [:create]
+      resources :journals, only: [:index, :show, :create, :update, :destroy]
     end
   end
 end
