@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 import ModalForm from './ModalForm'
 import ErrorList from './ErrorList'
 
-const UserNewForm = () => {
+const RegistrationForm = () => {
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -155,4 +155,4 @@ const UserNewForm = () => {
   )
 }
 
-export default UserNewForm;
+export default RegistrationForm;
