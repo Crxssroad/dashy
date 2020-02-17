@@ -32,9 +32,9 @@ class Api::V1::WidgetsController < ApplicationController
   end
 
   def reorder
-    dragged = Widget.find_by(position:  params[:dragIndex])
+    dragged = Widget.find(params[:dragId])
     dragged.position = params[:hoverIndex]
-    hovered = Widget.find_by(position:  params[:hoverIndex])
+    hovered = Widget.find(params[:hoverId])
     hovered.position = params[:dragIndex]
     if dragged.save && hovered.save
       render json: true

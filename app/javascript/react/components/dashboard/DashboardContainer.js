@@ -30,7 +30,7 @@ const DashboardContainer = () => {
   }
 
   const moveWidget = useCallback(
-      (dragIndex, hoverIndex) => {
+      (dragIndex, hoverIndex, dragId, hoverId) => {
         const dragWidget = widgets[dragIndex]
         const newOrder = widgets.map((widget, index, oldOrder) => {
           if (index === hoverIndex) {
@@ -44,7 +44,14 @@ const DashboardContainer = () => {
         const liveUpdate = () => {
           setWidgets(newOrder)
         }
-        updateOrder({dragIndex: dragIndex, hoverIndex: hoverIndex}, liveUpdate)
+        updateOrder({
+            dragIndex: dragIndex,
+            hoverIndex: hoverIndex,
+            dragId: dragId,
+            hoverId: hoverId
+          },
+          liveUpdate
+        )
       },
       [widgets],
   )
@@ -136,13 +143,14 @@ const DashboardContainer = () => {
         mod={widget.module}
         index={index}
         moveWidget={moveWidget}
+        widgetId={widget.id}
       />
     )
   })
 
   return (
     <Fragment>
-      <Sidebar rootPath="/dash" errors={widgetErrors} editMode={editMode} toggleEditMode={toggleEditMode} />
+      <Sidebar rootPath="/dash" addWidget={addWidget} errors={widgetErrors} editMode={editMode} toggleEditMode={toggleEditMode} />
       <DndProvider backend={Backend} >
         <div className="dashboard-container">{widgetTiles}</div>
       </DndProvider>

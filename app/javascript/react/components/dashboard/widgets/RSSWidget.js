@@ -1,17 +1,10 @@
 import React, { useState } from 'react'
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom'
-import { useDrag } from 'react-dnd'
 
 const RSSWidget = ({ settings, parentIndex }) => {
   const [imageError, setImageError] = useState(false)
   const data = settings.data
-  const [{isDragging}, drag] = useDrag({
-    item: { type: 'WidgetChild', parentIndex: parentIndex },
-    collect: monitor => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  })
 
   const articles = data.items.map((article, index) => {
     let outerClass = "carousel-item"
@@ -31,11 +24,6 @@ const RSSWidget = ({ settings, parentIndex }) => {
   if (imageError) image = null
   return(
     <div className="rss-widget widget-child"
-      ref={drag}
-      style={{
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-      }}
     >
       <h4>
         <i className="fas fa-rss"></i>
