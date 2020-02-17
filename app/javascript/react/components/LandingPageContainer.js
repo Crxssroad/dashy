@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-import UserNewForm from './UserNewForm'
+import RegistrationForm from './RegistrationForm'
 import LoginForm from './LoginForm'
 
 const  LandingPageContainer = ({user}) => {
@@ -30,7 +30,7 @@ const  LandingPageContainer = ({user}) => {
 
   const buttonGroup = <Fragment>
     <LoginForm />
-    <UserNewForm />
+    <RegistrationForm />
   </Fragment>
 
   const welcomeBackMessage = <Fragment>
