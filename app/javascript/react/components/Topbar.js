@@ -55,7 +55,8 @@ const Topbar = props => {
   let stashClass = "nav-item navbar-text navbar-sidebar"
   if(activePath === "/dash") dashClass+= " active"
   if(activePath === "/stash") stashClass+= " active"
-  let rightTopbarContent, leftTopbarContent, brandLink
+  let brandLink = "#"
+  let rightTopbarContent, leftTopbarContent
   if(currentUser) {
     brandLink = "/dash"
     togglerIcon =

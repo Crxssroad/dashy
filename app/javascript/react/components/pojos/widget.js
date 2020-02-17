@@ -7,7 +7,7 @@ import RSSWidget from '../dashboard/widgets/RSSWidget'
 class Widget {
   static load(type, content, parentIndex) {
     if (type === "Journal") {
-      return <JournalWidget journal={content} parentIndex={parentIndex}/>
+      return <JournalWidget journal={content} parentIndex={parentIndex} />
     }
     if (type === "WeatherSetting") {
       return <WeatherWidget settings={content} parentIndex={parentIndex} />
