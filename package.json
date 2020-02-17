@@ -21,6 +21,8 @@
     "prop-types": "~15.6.0",
     "react": "~16.8.0",
     "react-animated-weather": "^4.0.0",
+    "react-dnd": "^10.0.2",
+    "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "~16.8.0",
     "react-dropzone": "^10.2.1",
     "react-router-dom": "5.0.0",

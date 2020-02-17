@@ -3,7 +3,7 @@ class Api::V1::WidgetsController < ApplicationController
 
   def index
     if current_user
-      render json: current_user.widgets
+      render json: current_user.widgets.order(:position)
     else
       render json: nil
     end
@@ -31,7 +31,19 @@ class Api::V1::WidgetsController < ApplicationController
     end
   end
 
+  def reorder
+    dragged = Widget.find_by(position:  params[:dragIndex])
+    dragged.position = params[:hoverIndex]
+    hovered = Widget.find_by(position:  params[:hoverIndex])
+    hovered.position = params[:dragIndex]
+    if dragged.save && hovered.save
+      render json: true
+    else
+      render json: false
+    end
+  end
+
   def widget_params
-    params.require(:widget).permit(:position, :modulable_type, :modulable_id)
+    params.require(:widget).permit(:position, :modulable_type, :modulable_id, :old_position, :new_position)
   end
 end

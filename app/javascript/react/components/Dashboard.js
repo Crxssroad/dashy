@@ -1,9 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
 
 import WidgetTile from './WidgetTile'
 
-const Dashboard = ({ widgets, deleteWidget, editMode }) => {
-  const widgetTiles = widgets.map(widget => {
+const Dashboard = ({ widgets, deleteWidget, editMode, moveWidget }) => {
+  const widgetTiles = widgets.map((widget, index) => {
     const handleDelete = () => {
       deleteWidget(widget.id)
     }
@@ -11,16 +13,21 @@ const Dashboard = ({ widgets, deleteWidget, editMode }) => {
       <WidgetTile
         handleDelete={handleDelete}
         editMode={editMode}
-        key={widget.id}
+        key={index}
         type={widget.modulable_type}
         mod={widget.module}
+        index={index}
+        moveWidget={moveWidget}
+        id={widget.id}
       />
     )
   })
 
   return (
     <Fragment>
-      <div className="dashboard-container">{widgetTiles}</div>
+      <DndProvider backend={Backend} >
+        <div className="dashboard-container">{widgetTiles}</div>
+      </DndProvider>
     </Fragment>
   )
 }
