@@ -139,8 +139,8 @@ const DashboardContainer = () => {
         handleDelete={handleDelete}
         editMode={editMode}
         key={widget.id}
-        type={widget.modulable_type}
-        mod={widget.module}
+        type={widget.modulable.type}
+        mod={widget.modulable[widget.modulable.type]}
         index={index}
         moveWidget={moveWidget}
         widgetId={widget.id}
