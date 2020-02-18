@@ -1,7 +1,11 @@
 import React from 'react'
 
 const JournalWidget = ({ journal, parentIndex }) => {
-
+  const entries = journal.entries.map(entry => {
+    return(
+      <li key={entry.id}>{entry.title}</li>
+    )
+  })
   return(
     <div className="journal-widget widget-child"
     >
@@ -11,6 +15,7 @@ const JournalWidget = ({ journal, parentIndex }) => {
       </h4>
       <div>
         <p>{journal.description}</p>
+        <ul>{entries}</ul>
       </div>
     </div>
   )
