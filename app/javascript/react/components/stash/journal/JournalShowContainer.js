@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import JournalNewForm from './JournalNewForm';
 import JournalDetails from './JournalDetails';
 import EntryNewForm from './entry/EntryNewForm';
-import EntryList from './entry/EntryList';
 
 const JournalShowContainer = props => {
   const [journal, setJournal] = useState({});
@@ -133,7 +132,6 @@ const JournalShowContainer = props => {
     <div className="journal-show-container">
       {display}
       <EntryNewForm addEntry={addEntry} errors={errors} />
-      <EntryList entries={entries} />
     </div>
   )
 }
