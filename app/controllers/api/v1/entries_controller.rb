@@ -1,11 +1,6 @@
 class Api::V1::EntriesController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
 
-  def show
-    binding.pry
-    render json: Entry.find(params[:id])
-  end
-
   def create
     journal = Journal.find(params[:journal_id])
     entry = Entry.new(entry_params)
@@ -22,7 +17,6 @@ class Api::V1::EntriesController < ApplicationController
   end
 
   def update
-    binding.pry
     entry = Entry.find(params[:id])
     entry.assign_attributes(entry_params)
 
@@ -36,10 +30,7 @@ class Api::V1::EntriesController < ApplicationController
   def destroy
     entry = Entry.find(params[:id])
     entry.destroy
-
-    if entry.destroyed?
-      entry.widgets.destroy_all
-    end
+    render json: entry
   end
 
   private
