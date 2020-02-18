@@ -16,10 +16,12 @@ ActiveRecord::Schema.define(version: 2020_02_17_221451) do
   enable_extension "plpgsql"
 
   create_table "entries", force: :cascade do |t|
-    t.string "title", default: "Untitled"
+    t.string "title", default: "Untitled", null: false
     t.text "body"
+    t.bigint "journal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["journal_id"], name: "index_entries_on_journal_id"
   end
 
   create_table "journals", force: :cascade do |t|
