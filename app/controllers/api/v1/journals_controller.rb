@@ -37,6 +37,7 @@ class Api::V1::JournalsController < ApplicationController
 
     if journal.destroyed?
       journal.widgets.destroy_all
+      render json: journal
     end
   end
 
