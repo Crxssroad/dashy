@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import JournalTile from './JournalTile';
-import JournalNewForm from './JournalNewForm';
+import CreateJournalButton from './CreateJournalButton'
 import EntrySidebar from './entry/EntrySidebar'
 import EntryPage from './entry/EntryPage';
 
@@ -11,7 +11,6 @@ const JournalsApp = () => {
   const [entries, setEntries] = useState([]);
   const [entry, setEntry] = useState({title: "", body: ""})
   const [errors, setErrors] = useState([]);
-  const [newClicked, setNewClicked] = useState(false);
   const [journalsVisible, setJournalsVisible] = useState(true);
   const [entriesVisible, setEntriesVisible] = useState(true);
 
@@ -28,6 +27,7 @@ const JournalsApp = () => {
       setJournals(parsedBody)
       if (parsedBody[0]) {
         setSelectedJournal(parsedBody[0])
+        setEntries(parsedBody[0].entries)
       } else {
         setEntriesVisible(false)
       }
@@ -36,7 +36,7 @@ const JournalsApp = () => {
   }, []);
 
   // Journal actions
-  const addNewJournal = (payload) => {
+  const addNewJournal = (payload, closeForm) => {
     fetch('/api/v1/journals', {
       credentials: 'same-origin',
       method: "POST",
@@ -56,7 +56,7 @@ const JournalsApp = () => {
     .then(parsedBody => {
       if (!Array.isArray(parsedBody)) {
         setJournals([...journals, parsedBody])
-        setNewClicked(false)
+        closeForm()
       } else {
         setErrors(parsedBody)
       }
@@ -64,10 +64,36 @@ const JournalsApp = () => {
     .catch(error => console.error(`Error in journal post fetch ${error.message}`))
   }
 
+  const deleteJournal = (trashedJournal) => {
+    fetch(`/api/v1/journals/${trashedJournal.id}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      let newJournals = journals.filter(journal => {
+        return journal.id !== parsedBody.id
+      })
+      setJournals(newJournals)
+      setSelectedJournal(null)
+      setEntry({})
+    })
+    .catch(error => console.error(`Error in journals delete fetch ${error.message}`))
+  }
+
   const journalTiles = journals.map(journal => {
     const populateEntries = () => {
       setSelectedJournal(journal)
       setEntries(journal.entries)
+    }
+    const trashJournal = () => {
+      deleteJournal(journal)
     }
     let selected
     if (selectedJournal && journal.id === selectedJournal.id) selected = true
@@ -76,6 +102,7 @@ const JournalsApp = () => {
         key={journal.id}
         journal={journal}
         populateEntries={populateEntries}
+        trashJournal={trashJournal}
         selected={selected}
       />
     );
@@ -190,10 +217,6 @@ const JournalsApp = () => {
       toggleEntriesSidebar={toggleEntriesSidebar}
     />
 
-  const handleFormDisplay = () => {
-    setNewClicked(!newClicked)
-  }
-
   let sidebarAreaClass = "sidebar-area";
   let journalsClass, entriesClass
   if (!journalsVisible) {
@@ -228,6 +251,7 @@ const JournalsApp = () => {
         {entrySidebar}
         <div id="journals-sidebar" className={journalsClass}>
           <h2 className="sidebar-hdr">Journals</h2>
+          <CreateJournalButton addNewJournal={addNewJournal} errors={errors} />
           <ul>
             {journalTiles}
           </ul>
