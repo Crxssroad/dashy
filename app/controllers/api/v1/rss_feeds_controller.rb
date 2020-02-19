@@ -1,4 +1,3 @@
-require 'rss'
 require 'net/http'
 require 'open-uri'
 
