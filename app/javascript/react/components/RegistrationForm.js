@@ -132,13 +132,13 @@ const RegistrationForm = () => {
               value={user.password_confirmation}
               />
           </div>
-          <img src={uploadedPhoto[0].preview} />
+          <img className="registration-photo" src={uploadedPhoto[0].preview} />
           <Dropzone onDrop={handleFileUpload}>
             {({getRootProps, getInputProps}) => (
               <section>
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
+                  <p>Drag 'n' drop a profile photo, or click to select one</p>
                 </div>
               </section>
             )}
