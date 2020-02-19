@@ -7,7 +7,6 @@ import ModalForm from './ModalForm'
 import LandingPageContainer from './LandingPageContainer'
 import LoginForm from './LoginForm'
 import JournalsApp from './stash/journal/JournalsApp'
-import JournalShowContainer from './stash/journal/JournalShowContainer'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
@@ -112,7 +111,8 @@ const Topbar = props => {
           <Route exact path='/users/login' render={(props) => <LandingPageContainer user={currentUser} />}   />
           <Route exact path='/stash' component={StashContainer} />
           <Route exact path='/stash/journals' component={JournalsApp}/>
-          <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
+          <Route exact path='/stash/journals/:id' component={JournalsApp}/>
+          <Route exact path='/stash/journals/:journalId/entries/:entryId' component={JournalsApp}/>
         </Switch>
       </section>
     </Fragment>

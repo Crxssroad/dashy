@@ -5,7 +5,7 @@ import CreateJournalButton from './CreateJournalButton'
 import EntrySidebar from './entry/EntrySidebar'
 import EntryPage from './entry/EntryPage';
 
-const JournalsApp = () => {
+const JournalsApp = (props) => {
   const [journals, setJournals] = useState([]);
   const [selectedJournal, setSelectedJournal] = useState(null);
   const [entries, setEntries] = useState([]);
@@ -15,6 +15,8 @@ const JournalsApp = () => {
   const [entriesVisible, setEntriesVisible] = useState(true);
 
   useEffect(() => {
+    const journalId = Number(props.match.params.journalId)
+    const entryId = Number(props.match.params.entryId)
     fetch('/api/v1/journals')
     .then(response => {
       if (response.ok) {
@@ -25,14 +27,26 @@ const JournalsApp = () => {
     })
     .then(parsedBody => {
       setJournals(parsedBody)
-      if (parsedBody[0]) {
-        setSelectedJournal(parsedBody[0])
-        setEntries(parsedBody[0].entries)
+      let initialJournal = null
+      let initialEntries = []
+      let initialEntry = {}
+      if (journalId) {
+        initialJournal = parsedBody[parsedBody.findIndex(journal => journal.id === journalId)]
+        initialEntries = initialJournal.entries
+        if (entryId) {
+          initialEntry = initialEntries[initialEntries.findIndex(entry => entry.id === entryId)]
+        }
+      } else if (parsedBody[0]) {
+        initialJournal = parsedBody[0]
+        initialEntries = initialJournal.entries
       } else {
         setEntriesVisible(false)
       }
+      setSelectedJournal(initialJournal)
+      setEntries(initialEntries)
+      setEntry(initialEntry)
     })
-    .catch(error => console.error(`Error in stash fetch ${error.message}`));
+    .catch(error => console.error(`Error in journals initial fetch ${error.message}`));
   }, []);
 
   // Journal actions
