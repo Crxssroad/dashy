@@ -29,7 +29,7 @@ const EntryNewForm = ({ addEntry, errors }) => {
       </label>
 
       <label>
-        <textarea name="body" onChange={handleInput}>{entry.body}</textarea>
+        <textarea name="body" value={entry.body} onChange={handleInput} />
       </label>
 
       <input type="submit" value="Save" />
