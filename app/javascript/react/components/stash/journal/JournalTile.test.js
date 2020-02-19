@@ -8,27 +8,33 @@ import JournalTile from './JournalTile'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe("JournalTile", () => {
-  let wrapper
+  let wrapper, populateEntries
   let customJournal = {
     title: "Legion",
     description: "We were many."
   }
 
   beforeEach(() => {
+    populateEntries = jest.fn()
     wrapper = mount(
-      <BrowserRouter>
-        <JournalTile
-          journal={customJournal}
-          />
-      </BrowserRouter>
+      <JournalTile
+        journal={customJournal}
+        populateEntries={populateEntries}
+        selected={true}
+      />
     )
   })
 
-  it("should return a h3 element containing a journal title", () => {
-    expect(wrapper.find("h3").first().text()).toBe("Legion")
+  it("should have a list element with an 'item selected' class when given a selected prop of true", () => {
+    expect(wrapper.find("li").first().props().className).toBe('item selected')
   })
 
-  it("should return a h4 element containing a journal description", () => {
-    expect(wrapper.find("h4").first().text()).toBe("We were many.")
+  it("should return a list element containing a journal title", () => {
+    expect(wrapper.find("li").first().text().includes("Legion")).toBe(true)
+  })
+
+  it('should invoke the onClick function from props when clicked', () => {
+    wrapper.simulate('click');
+    expect(populateEntries).toHaveBeenCalled()
   })
 })

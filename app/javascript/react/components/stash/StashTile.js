@@ -1,27 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-const StashTile = ({ type, content }) => {
-  const style = `${type}-stash stash-tile`
-
-  const contentTiles = content.map(each => {
-    return(
-      <Link to={`/stash/${type}/${each.id}`} key={each.id}>
-        <li className="content-tile">
-          <span>•</span> {each.title}
-        </li>
-      </Link>
-    )
-  })
+const StashTile = ({ parentClass, cardFront, cardBack, stashName }) => {
 
   return (
-
-      <section className={style}>
-        <Link to={`/stash/${type}`}>
-          <h3 className="stash-tile-header">You have {content.length} {type}</h3>
-        </Link>
-        {contentTiles}
-      </section>
+    <section className={parentClass}>
+      <Link to={`/stash/${stashName}`}>
+        <div className="flip-card">
+          <div className="flip-card-inner">
+            <div className="flip-card-front">
+              {cardFront}
+            </div>
+            <div className="flip-card-back">
+              <h1>{cardBack}</h1>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </section>
   )
 }
 

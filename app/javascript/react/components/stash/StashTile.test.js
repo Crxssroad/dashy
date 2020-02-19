@@ -9,52 +9,29 @@ Enzyme.configure({ adapter: new Adapter() })
 
 describe("StashTile", () => {
   let wrapper
-  let type = "journals"
-  let content = [
-    {
-      id: 1,
-      title: "Where's Waldo?",
-      description: "Not entirely sure"
-    },
-    {
-      id: 2,
-      title: "Generic Journal",
-      description: "Generic Description"
-    },
-    {
-      id: 3,
-      title: "Interesting Journal",
-      description: "Very interesting description"
-    },
-  ]
+
   beforeEach(() => {
     wrapper = mount(
       <BrowserRouter>
         <StashTile
-          type={type}
-          content={content}
-          />
+          stashName="journals"
+          parentClass="journal-stash"
+          cardFront={<i className="journal"></i>}
+          cardBack="Journals"
+        />
       </BrowserRouter>
     )
   })
 
   it("should return a section element with a custom class", () => {
-    expect(wrapper.find("section").props().className).toBe("journals-stash stash-tile")
+    expect(wrapper.find("section").props().className).toBe("journal-stash")
   })
 
   it("should return Link component leading to its specific index container", () => {
     expect(wrapper.find("Link").first().props().to).toBe("/stash/journals")
   })
 
-  it("should return Link component leading to its specific index container", () => {
-    expect(wrapper.find("Link").first().props().to).toBe("/stash/journals")
-  })
-
-  it("should return a p element containing the amount of journals passed into it", () => {
-    expect(wrapper.find("h3").first().text()).toBe("You have 3 journals")
-  })
-
-  it("should return 3 li elements", () => {
-    expect(wrapper.find("li").length).toBe(3)
+  it("should return a h1 element containing the passed down title", () => {
+    expect(wrapper.find("h1").first().text()).toBe("Journals")
   })
 })
