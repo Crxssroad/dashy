@@ -38,7 +38,7 @@ $entriesSidebarWidth: 270px;
         }
         .fa-trash {
           cursor: pointer;
-          color: green;
+          color: #ec4040;
         }
         .red {
           color: red;
@@ -86,6 +86,40 @@ $entriesSidebarWidth: 270px;
     transition: left 0.3s linear;
     font-family: "Helvetica Neue", Helvetica, Arial;
     overflow: scroll;
+
+    .create-journal {
+      margin: 0.3rem auto;
+      display: block;
+      border-style: none;
+      color: white;
+      background-color: #6bd86b;
+      border-radius: 0.8rem;
+    }
+
+    form {
+      text-align: center;
+      background-color: #444;
+      padding: 0.5rem;
+      border-radius: 0.1rem;
+      margin-bottom: 0.3rem;
+      input {
+        margin-bottom: 0.2rem;
+        border-style: none;
+        background-color: #1C1E1F;
+        border-radius: 0.2rem;
+        color: #ccc;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+      }
+      .create {
+        color: #FFFF;
+        background-color: #6bd86b;
+      }
+      .error-list {
+        background: white;
+        color: #ec4040;
+      }
+    }
   }
 
   #journals-sidebar.hide {
@@ -167,7 +201,7 @@ $entriesSidebarWidth: 270px;
       .fa-plus-circle {
         float: right;
         cursor: pointer;
-        color: #20C0FA;
+        color: #6bd86b;
       }
     }
   }
@@ -191,6 +225,7 @@ $entriesSidebarWidth: 270px;
   }
 
   .sidebar-hdr {
+    margin: 0;
     background: #1C1E1F;
     color: #ccc;
     border-bottom: 1px solid #111;
@@ -208,6 +243,36 @@ $entriesSidebarWidth: 270px;
     width: 200px;
     padding: 10px;
     text-decoration: none;
+    .fa-trash {
+      display: none;
+      color: #ec4040;
+      float: right;
+    }
+  }
+
+  .item:hover {
+    .fa-trash {
+      display: block;
+    }
+  }
+
+  .fa-trash:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
   }
 
   .item.selected {
