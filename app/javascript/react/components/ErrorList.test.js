@@ -23,7 +23,7 @@ describe("ErrorList", () => {
   })
 
   it("should return an li element containing an error", () => {
-    expect(wrapper.find("li").first().text()).toBe("Title can't be blank")
+    expect(wrapper.find("li").first().text().includes("Title can't be blank")).toBe(true)
   })
 
   it("should return all of the errors provided", () => {

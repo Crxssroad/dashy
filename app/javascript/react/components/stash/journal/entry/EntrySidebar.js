@@ -2,7 +2,7 @@ import React from 'react'
 
 import EntryTile from './EntryTile'
 
-const EntrySidebar = ({ entries, journal, setEntry, selectedEntry, addEntry }) => {
+const EntrySidebar = ({ entries, journal, setEntry, selectedEntry, addEntry, entriesClass }) => {
 
   const tiles = entries.map(entry => {
     const populateEntryPage = () => {
@@ -20,7 +20,7 @@ const EntrySidebar = ({ entries, journal, setEntry, selectedEntry, addEntry }) =
     )
   })
   return(
-    <div id="entries-sidebar">
+    <div id="entries-sidebar" className={entriesClass}>
       <div className="sidebar-hdr">
         <h5><i className="fas fa-book"></i> {journal.title}</h5>
         <i className="fas fa-plus-circle" onClick={addEntry}></i>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const EntryPage = ({ entry, journal, handleEntryInput, updateEntry, deleteEntry }) => {
+const EntryPage = ({ entry, journal, handleEntryInput, updateEntry, deleteEntry, journalsVisible, toggleJournalsSidebar, entriesVisible, toggleEntriesSidebar }) => {
   const [headerEditMode, setHeaderEditMode] = useState(false)
   const [initialEntry, setInitialEntry] = useState(entry)
   const [initialJournal, setInitialJournal] = useState(journal)
@@ -29,8 +29,25 @@ const EntryPage = ({ entry, journal, handleEntryInput, updateEntry, deleteEntry 
   let saveState
   if (updatesMade()) saveState = <span className="red">You have unsaved changes! </span>
 
+  let toggleJournalsBtn, toggleEntriesBtn
+  if (entriesVisible && journalsVisible) {
+    toggleEntriesBtn = <input type="button" onClick={toggleEntriesSidebar} value={`<`} />
+  }
+  if (journalsVisible && !entriesVisible) {
+    toggleJournalsBtn = <input type="button" onClick={toggleJournalsSidebar} value={`<`} />
+    toggleEntriesBtn = <input type="button" onClick={toggleEntriesSidebar} value={`>`} />
+  }
+
+  if (!journalsVisible) {
+    toggleJournalsBtn = <input type="button" onClick={toggleJournalsSidebar} value={`>`} />
+  }
+
   return (
     <section className="entry-page">
+      <section className="toggle-buttons">
+        {toggleJournalsBtn}
+        {toggleEntriesBtn}
+      </section>
       <section className="entry-topbar">
         <div className="left">
           <span className="entry-journal"><i className="fas fa-book"></i> {initialJournal.title}</span>

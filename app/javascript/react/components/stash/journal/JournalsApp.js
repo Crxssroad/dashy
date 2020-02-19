@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 import JournalTile from './JournalTile';
-import JournalNewForm from './JournalNewForm';
+import CreateJournalButton from './CreateJournalButton'
 import EntrySidebar from './entry/EntrySidebar'
 import EntryPage from './entry/EntryPage';
 
 const JournalsApp = () => {
   const [journals, setJournals] = useState([]);
-  const [selectedJournal, setSelectedJournal] = useState({});
+  const [selectedJournal, setSelectedJournal] = useState(null);
   const [entries, setEntries] = useState([]);
   const [entry, setEntry] = useState({title: "", body: ""})
   const [errors, setErrors] = useState([]);
-  const [newClicked, setNewClicked] = useState(false);
   const [journalsVisible, setJournalsVisible] = useState(true);
+  const [entriesVisible, setEntriesVisible] = useState(true);
 
   useEffect(() => {
     fetch('/api/v1/journals')
@@ -25,12 +25,18 @@ const JournalsApp = () => {
     })
     .then(parsedBody => {
       setJournals(parsedBody)
+      if (parsedBody[0]) {
+        setSelectedJournal(parsedBody[0])
+        setEntries(parsedBody[0].entries)
+      } else {
+        setEntriesVisible(false)
+      }
     })
     .catch(error => console.error(`Error in stash fetch ${error.message}`));
   }, []);
 
   // Journal actions
-  const addNewJournal = (payload) => {
+  const addNewJournal = (payload, closeForm) => {
     fetch('/api/v1/journals', {
       credentials: 'same-origin',
       method: "POST",
@@ -50,7 +56,7 @@ const JournalsApp = () => {
     .then(parsedBody => {
       if (!Array.isArray(parsedBody)) {
         setJournals([...journals, parsedBody])
-        setNewClicked(false)
+        closeForm()
       } else {
         setErrors(parsedBody)
       }
@@ -58,18 +64,45 @@ const JournalsApp = () => {
     .catch(error => console.error(`Error in journal post fetch ${error.message}`))
   }
 
+  const deleteJournal = (trashedJournal) => {
+    fetch(`/api/v1/journals/${trashedJournal.id}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      let newJournals = journals.filter(journal => {
+        return journal.id !== parsedBody.id
+      })
+      setJournals(newJournals)
+      setSelectedJournal(null)
+      setEntry({})
+    })
+    .catch(error => console.error(`Error in journals delete fetch ${error.message}`))
+  }
+
   const journalTiles = journals.map(journal => {
     const populateEntries = () => {
       setSelectedJournal(journal)
       setEntries(journal.entries)
     }
+    const trashJournal = () => {
+      deleteJournal(journal)
+    }
     let selected
-    if (journal.id === selectedJournal.id) selected = true
+    if (selectedJournal && journal.id === selectedJournal.id) selected = true
     return(
       <JournalTile
         key={journal.id}
         journal={journal}
         populateEntries={populateEntries}
+        trashJournal={trashJournal}
         selected={selected}
       />
     );
@@ -162,6 +195,14 @@ const JournalsApp = () => {
     .catch(error => console.error(`Error in entry delete fetch ${error.message}`))
   }
 
+  const toggleJournalsSidebar = () => {
+    setJournalsVisible(!journalsVisible)
+  }
+
+  const toggleEntriesSidebar = () => {
+    setEntriesVisible(!entriesVisible)
+  }
+
   let entryPage
   if (entry.id) entryPage =
     <EntryPage
@@ -170,40 +211,51 @@ const JournalsApp = () => {
       updateEntry={updateEntry}
       deleteEntry={deleteEntry}
       entry={entry}
+      journalsVisible={journalsVisible}
+      toggleJournalsSidebar={toggleJournalsSidebar}
+      entriesVisible={entriesVisible}
+      toggleEntriesSidebar={toggleEntriesSidebar}
     />
 
-  const handleFormDisplay = () => {
-    setNewClicked(!newClicked)
+  let sidebarAreaClass = "sidebar-area";
+  let journalsClass, entriesClass
+  if (!journalsVisible) {
+    journalsClass = " hide"
+  }
+  if (!entriesVisible && journalsVisible) {
+    sidebarAreaClass+= " hide-one"
+    entriesClass= " hide"
+  }
+  if (!journalsVisible && !entriesVisible) {
+    sidebarAreaClass+= " hide-two"
+    entriesClass = " hide-two"
   }
 
-  let journalFormShow = <input type="button" onClick={handleFormDisplay} value="Create Journal" />
-  if (newClicked) {
-    form = <JournalNewForm
-      handleFormDisplay={handleFormDisplay}
-      addNewJournal={addNewJournal}
-      errors={errors}
+  let entrySidebar
+
+  if (selectedJournal) {
+    entrySidebar = <EntrySidebar
+      journal={selectedJournal}
+      entries={entries}
+      selectedEntry={entry}
+      setEntry={setEntry}
+      addEntry={addEntry}
+      entriesClass={entriesClass}
     />
   }
-  let journalsClass = ""
-  let sidebarBtnText = ">"
-  if (journalsVisible) {
-    journalsClass = " visible"
-    sidebarBtnText = "<"
-  }
-  // {journalFormShow}
 
   return(
     <div className="journals-index-container">
-      <div id="journals-sidebar" className={journalsClass}>
-        <div className="sidebar-btn" onClick={() => {setJournalsVisible(!journalsVisible)}}>{sidebarBtnText}</div>
-        <h2 className="sidebar-hdr">Journals</h2>
-        <ul>
-          {journalTiles}
-        </ul>
-      </div>
-      <EntrySidebar journal={selectedJournal} entries={entries} selectedEntry={entry} setEntry={setEntry} addEntry={addEntry} />
-      <section className="sidebar-area">
-      </section>
+        <section className={sidebarAreaClass}>
+        </section>
+        {entrySidebar}
+        <div id="journals-sidebar" className={journalsClass}>
+          <h2 className="sidebar-hdr">Journals</h2>
+          <CreateJournalButton addNewJournal={addNewJournal} errors={errors} />
+          <ul>
+            {journalTiles}
+          </ul>
+        </div>
       <section className="entry-area">
         {entryPage}
       </section>
