@@ -10,12 +10,15 @@ Rails.application.routes.draw do
     get '/stash', to: 'homes#index'
     get '/stash/journals', to: 'homes#index'
     get '/stash/journals/:id', to: 'homes#index'
+    get '/stash/journals/:journal_id/entries/:id', to: 'homes#index'
   end
 
   namespace 'api' do
     namespace 'v1' do
       resources :stashes, only: [:index]
-      resources :journals, only: [:index, :show, :create, :update, :destroy]
+      resources :journals, only: [:index, :show, :create, :update, :destroy] do
+        resources :entries, only: [:create, :update, :destroy] 
+      end
       get '/users/current'
       resources :widgets, only: [:index, :create, :destroy]
       patch '/widgets/reorder'

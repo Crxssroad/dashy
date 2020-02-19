@@ -1,0 +1,32 @@
+$journal-color: #20C0FA;
+
+.stash-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 1rem;
+  .journal-stash {
+    cursor: pointer;
+    width: 202px;
+    height: 224px;
+    border-radius: 3rem;
+    i {
+      background-color: $journal-color;
+      font-size: 10rem;
+      padding: 1.9rem;
+      color: white;
+      border-radius: 3rem;
+    }
+    .flip-card {
+      border: none;
+    }
+    .flip-card-back {
+      border-radius: 3rem;
+      background-color: $journal-color;
+    }
+    .flip-card-front {
+      border-radius: 3rem;
+      background-color: $journal-color;
+    }
+  }
+}

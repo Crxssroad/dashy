@@ -3,9 +3,11 @@ import { Redirect } from 'react-router-dom'
 
 import JournalNewForm from './JournalNewForm';
 import JournalDetails from './JournalDetails';
+import EntryNewForm from './entry/EntryNewForm';
 
 const JournalShowContainer = props => {
   const [journal, setJournal] = useState({});
+  const [entries, setEntries] = useState([]);
   const [errors, setErrors] = useState([]);
   const [editClicked, setEditClicked] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -23,6 +25,7 @@ const JournalShowContainer = props => {
     })
     .then(parsedBody => {
       setJournal(parsedBody)
+      setEntries(parsedBody.entries)
     })
     .catch(error => console.error(`Error in journal fetch ${error.message}`));
   }, []);
@@ -102,9 +105,33 @@ const JournalShowContainer = props => {
 
   if (shouldRedirect) return <Redirect to='/stash/journals' />
 
+  const addEntry = (payload) => {
+    fetch(`/api/v1/journals/${journal.id}/entries/`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`)
+      }
+    })
+    .then(parsedBody => {
+      setEntries([...entries, parsedBody])
+    })
+    .catch(error => console.error(`Error in entry post fetch ${error.message}`))
+  }
+
   return(
     <div className="journal-show-container">
       {display}
+      <EntryNewForm addEntry={addEntry} errors={errors} />
     </div>
   )
 }

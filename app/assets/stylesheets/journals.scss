@@ -1,0 +1,228 @@
+.journals-index-container {
+  width: 100%;
+  height: 100vh;
+  background-color: green;
+  display: flex;
+  align-content: stretch;
+  .sidebar-area {
+    width: 470px;
+    height: 100%;
+    background-color: red;
+  }
+
+  .entry-area {
+    flex-grow: 1;
+    background-color: white;
+    width: 50px;
+    height: 100%;
+  }
+
+  .entry-page {
+    height: 100%;
+    padding: 1.5rem 1.5rem 0;
+    overflow: hidden;
+
+    .entry-topbar {
+      display: flex;
+      justify-content: space-between;
+      .left {
+        .entry-journal {
+          font-size: 0.8rem;
+          color: #888b8e;
+        }
+      }
+      .right {
+        .fas {
+          padding: 0.3rem;
+        }
+        .fa-save {
+          cursor: pointer;
+          color: #20C0FA;
+        }
+        .fa-trash {
+          cursor: pointer;
+          color: green;
+        }
+        .red {
+          color: red;
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .entry-hdr {
+      border-bottom: thin solid #ccc;
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        line-height: 1.2;
+      }
+      h2 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+    .entry-content {
+      outline: none;
+      resize: none;
+      border: none;
+      width: 100%;
+      height: auto;
+      padding: 0.2rem 1.2rem;
+      height: 86vh;
+    }
+  }
+
+  #journals-sidebar {
+    z-index: 20;
+    background: #151718;
+    width: 200px;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: -200px;
+    top: 720;
+    transition: left 0.3s linear;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    overflow: scroll;
+  }
+
+  #journals-sidebar.visible {
+    left:0;
+    transition: left 0.3s linear;
+  }
+
+  #entries-sidebar {
+    z-index: 20;
+    background: #edf1f5;
+    border-right: thin solid #ccc;
+    border-width: thin;
+    width: 270px;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 200px;
+    top: 720;
+    transition: left 0.3s linear;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    overflow: scroll;
+    .item {
+      background: inherit;
+      color: #1C1E1F;
+      border-bottom: thin solid #ccc;
+      display: block;
+      width: 270px;
+      height: 90px;
+      padding: 2px 10px 2px;
+      text-decoration: none;
+      margin: 0;
+      h6 {
+        display: block;
+        margin: 0;
+        height: 20px;
+        font-size: 0.9rem;
+        overflow: auto;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      p {
+        display: block;
+        height: 50px;
+        font-size: 0.8rem;
+        margin: 0;
+        overflow: hidden;
+      }
+      span {
+        display: block;
+        height: 10px;
+        margin-bottom: 5px;
+        font-size: 0.5rem;
+      }
+    }
+    .item.selected {
+      background-color: #ffffff;
+    }
+
+    .sidebar-hdr {
+      background: #fdfeff;
+      margin: 0;
+      color: #1C1E1F;
+      border-right: thin solid #ccc;
+      border-bottom: 1px solid #ccc;
+      display: block;
+      height: 60px;
+      width: 270px;
+      padding: 10px;
+      text-decoration: none;
+      p {
+        margin: 0;
+      }
+      h5 {
+        margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .fa-plus-circle {
+        float: right;
+        cursor: pointer;
+        color: #20C0FA;
+      }
+    }
+  }
+
+  ul {
+    margin:0px;
+    padding:0px;
+    li {
+      list-style: none;
+    }
+  }
+
+  .sidebar-hdr {
+    background: #1C1E1F;
+    color: #ccc;
+    border-bottom: 1px solid #111;
+    display: block;
+    width: 200px;
+    padding: 10px;
+    text-decoration: none;
+  }
+  .item {
+    cursor: pointer;
+    background: #1C1E1F;
+    color: #ccc;
+    border-bottom: 1px solid #111;
+    display: block;
+    width: 200px;
+    padding: 10px;
+    text-decoration: none;
+  }
+
+  .item.selected {
+    background-color: #20C0FA;
+    color: white;
+  }
+
+  .sidebar-btn {
+    width: 40px;
+    height: 30px;
+    z-index: -1;
+    border-radius: 10px;
+    text-align: right;
+    padding-right: 7px;
+    background-color: #20C0FA;
+    font-size: 20px;
+    color: white;
+    margin: 20px;
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 720;
+    right: -40px;
+  }
+}
