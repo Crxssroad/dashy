@@ -6,7 +6,7 @@ import StashContainer from './stash/StashContainer'
 import ModalForm from './ModalForm'
 import LandingPageContainer from './LandingPageContainer'
 import LoginForm from './LoginForm'
-import JournalsIndexContainer from './stash/journal/JournalsIndexContainer'
+import JournalsApp from './stash/journal/JournalsApp'
 import JournalShowContainer from './stash/journal/JournalShowContainer'
 
 const Topbar = props => {
@@ -111,7 +111,7 @@ const Topbar = props => {
           <Route exact path='/dash' render={(props) => <DashboardContainer /> }/>
           <Route exact path='/users/login' render={(props) => <LandingPageContainer user={currentUser} />}   />
           <Route exact path='/stash' component={StashContainer} />
-          <Route exact path='/stash/journals' component={JournalsIndexContainer}/>
+          <Route exact path='/stash/journals' component={JournalsApp}/>
           <Route exact path='/stash/journals/:id' component={JournalShowContainer}/>
         </Switch>
       </section>

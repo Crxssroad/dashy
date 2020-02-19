@@ -5,7 +5,7 @@ import JournalNewForm from './JournalNewForm';
 import EntrySidebar from './entry/EntrySidebar'
 import EntryPage from './entry/EntryPage';
 
-const JournalsIndexContainer = () => {
+const JournalsApp = () => {
   const [journals, setJournals] = useState([]);
   const [selectedJournal, setSelectedJournal] = useState({});
   const [entries, setEntries] = useState([]);
@@ -211,4 +211,4 @@ const JournalsIndexContainer = () => {
   )
 }
 
-export default JournalsIndexContainer;
+export default JournalsApp;
