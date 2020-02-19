@@ -10,6 +10,10 @@ $journal-color: #20C0FA;
     width: 202px;
     height: 224px;
     border-radius: 3rem;
+    a {
+      width: inherit;
+      height: inherit;
+    }
     i {
       background-color: $journal-color;
       font-size: 10rem;
