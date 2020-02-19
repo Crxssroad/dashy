@@ -216,6 +216,7 @@ $entriesSidebarWidth: 270px;
   }
 
   .sidebar-area {
+    background-color: #FFFF;
     height: 100%;
     width: $journalsSidebarWidth + $entriesSidebarWidth;
     transition: width 0.7s;

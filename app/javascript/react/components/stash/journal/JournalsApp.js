@@ -7,7 +7,7 @@ import EntryPage from './entry/EntryPage';
 
 const JournalsApp = () => {
   const [journals, setJournals] = useState([]);
-  const [selectedJournal, setSelectedJournal] = useState({});
+  const [selectedJournal, setSelectedJournal] = useState(null);
   const [entries, setEntries] = useState([]);
   const [entry, setEntry] = useState({title: "", body: ""})
   const [errors, setErrors] = useState([]);
@@ -26,6 +26,11 @@ const JournalsApp = () => {
     })
     .then(parsedBody => {
       setJournals(parsedBody)
+      if (parsedBody[0]) {
+        setSelectedJournal(parsedBody[0])
+      } else {
+        setEntriesVisible(false)
+      }
     })
     .catch(error => console.error(`Error in stash fetch ${error.message}`));
   }, []);
@@ -65,7 +70,7 @@ const JournalsApp = () => {
       setEntries(journal.entries)
     }
     let selected
-    if (journal.id === selectedJournal.id) selected = true
+    if (selectedJournal && journal.id === selectedJournal.id) selected = true
     return(
       <JournalTile
         key={journal.id}
@@ -203,18 +208,24 @@ const JournalsApp = () => {
     entriesClass = " hide-two"
   }
 
+  let entrySidebar
+
+  if (selectedJournal) {
+    entrySidebar = <EntrySidebar
+      journal={selectedJournal}
+      entries={entries}
+      selectedEntry={entry}
+      setEntry={setEntry}
+      addEntry={addEntry}
+      entriesClass={entriesClass}
+    />
+  }
+
   return(
     <div className="journals-index-container">
         <section className={sidebarAreaClass}>
         </section>
-        <EntrySidebar
-          journal={selectedJournal}
-          entries={entries}
-          selectedEntry={entry}
-          setEntry={setEntry}
-          addEntry={addEntry}
-          entriesClass={entriesClass}
-        />
+        {entrySidebar}
         <div id="journals-sidebar" className={journalsClass}>
           <h2 className="sidebar-hdr">Journals</h2>
           <ul>
