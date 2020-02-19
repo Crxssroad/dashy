@@ -6,6 +6,8 @@ class Api::V1::RssFeedsController < ApplicationController
 
   def create
     feed = RssFeed.find_or_initialize_by(rss_feed_params)
+    feed.url.strip!
+    
     if feed.persisted? && needs_update?(feed.updated_at.to_f)
       data = parse_feed(params[:url])
 
