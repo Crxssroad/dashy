@@ -13,6 +13,7 @@ const JournalsApp = () => {
   const [errors, setErrors] = useState([]);
   const [newClicked, setNewClicked] = useState(false);
   const [journalsVisible, setJournalsVisible] = useState(true);
+  const [entriesVisible, setEntriesVisible] = useState(true);
 
   useEffect(() => {
     fetch('/api/v1/journals')
@@ -162,6 +163,14 @@ const JournalsApp = () => {
     .catch(error => console.error(`Error in entry delete fetch ${error.message}`))
   }
 
+  const toggleJournalsSidebar = () => {
+    setJournalsVisible(!journalsVisible)
+  }
+
+  const toggleEntriesSidebar = () => {
+    setEntriesVisible(!entriesVisible)
+  }
+
   let entryPage
   if (entry.id) entryPage =
     <EntryPage
@@ -170,40 +179,48 @@ const JournalsApp = () => {
       updateEntry={updateEntry}
       deleteEntry={deleteEntry}
       entry={entry}
+      journalsVisible={journalsVisible}
+      toggleJournalsSidebar={toggleJournalsSidebar}
+      entriesVisible={entriesVisible}
+      toggleEntriesSidebar={toggleEntriesSidebar}
     />
 
   const handleFormDisplay = () => {
     setNewClicked(!newClicked)
   }
 
-  let journalFormShow = <input type="button" onClick={handleFormDisplay} value="Create Journal" />
-  if (newClicked) {
-    form = <JournalNewForm
-      handleFormDisplay={handleFormDisplay}
-      addNewJournal={addNewJournal}
-      errors={errors}
-    />
+  let sidebarAreaClass = "sidebar-area";
+  let journalsClass, entriesClass
+  if (!journalsVisible) {
+    journalsClass = " hide"
   }
-  let journalsClass = ""
-  let sidebarBtnText = ">"
-  if (journalsVisible) {
-    journalsClass = " visible"
-    sidebarBtnText = "<"
+  if (!entriesVisible && journalsVisible) {
+    sidebarAreaClass+= " hide-one"
+    entriesClass= " hide"
   }
-  // {journalFormShow}
+  if (!journalsVisible && !entriesVisible) {
+    sidebarAreaClass+= " hide-two"
+    entriesClass = " hide-two"
+  }
 
   return(
     <div className="journals-index-container">
-      <div id="journals-sidebar" className={journalsClass}>
-        <div className="sidebar-btn" onClick={() => {setJournalsVisible(!journalsVisible)}}>{sidebarBtnText}</div>
-        <h2 className="sidebar-hdr">Journals</h2>
-        <ul>
-          {journalTiles}
-        </ul>
-      </div>
-      <EntrySidebar journal={selectedJournal} entries={entries} selectedEntry={entry} setEntry={setEntry} addEntry={addEntry} />
-      <section className="sidebar-area">
-      </section>
+        <section className={sidebarAreaClass}>
+        </section>
+        <EntrySidebar
+          journal={selectedJournal}
+          entries={entries}
+          selectedEntry={entry}
+          setEntry={setEntry}
+          addEntry={addEntry}
+          entriesClass={entriesClass}
+        />
+        <div id="journals-sidebar" className={journalsClass}>
+          <h2 className="sidebar-hdr">Journals</h2>
+          <ul>
+            {journalTiles}
+          </ul>
+        </div>
       <section className="entry-area">
         {entryPage}
       </section>
