@@ -26,9 +26,11 @@ const EntrySidebar = ({ entries, journal, setEntry, selectedEntry, addEntry, ent
         <i className="fas fa-plus-circle" onClick={addEntry}></i>
         <p>{entries.length} entries</p>
       </div>
-      <ul>
-        {tiles}
-      </ul>
+      <section className="items-container">
+        <ul>
+          {tiles}
+        </ul>
+      </section>
     </div>
   )
 }

@@ -266,9 +266,11 @@ const JournalsApp = (props) => {
         <div id="journals-sidebar" className={journalsClass}>
           <h2 className="sidebar-hdr">Journals</h2>
           <CreateJournalButton addNewJournal={addNewJournal} errors={errors} />
-          <ul>
-            {journalTiles}
-          </ul>
+          <section className="items-container">
+            <ul>
+              {journalTiles}
+            </ul>
+          </section>
         </div>
       <section className="entry-area">
         {entryPage}

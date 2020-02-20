@@ -26,9 +26,14 @@ $journal-color: #20C0FA;
     margin:0;
     height: 15%;
     padding: 0.5rem;
-    color: white;
     background-color: $journal-color;
+    a {
+      color: #3a3030;
+      cursor: pointer;
+      text-decoration: none;
+    }
     i {
+      color: white;
       float: right;
     }
   }
@@ -36,22 +41,33 @@ $journal-color: #20C0FA;
     padding: 0.5rem;
     font-size: 1rem;
     height: 11rem;
-    overflow: scroll;
+    overflow-y: auto;
   }
 
   ul {
     padding: 0;
     list-decoration: none;
     margin: 0;
-    li {
-      margin: 0;
-      overflow: auto;
+    .entry {
+      margin-bottom: 0.2rem;
+      overflow-y: auto;
       white-space: nowrap;
       text-overflow: ellipsis;
+      background: #20c0fa;
+      padding: 0.2rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      a {
+        color: #3a2f2f;
+        text-decoration: none;
+        i {
+          color: white;
+        }
+      }
     }
 
-    li:hover {
-      background-color: #f9f9f9;
+    .entry:hover {
+      transform: translateX(6px);
     }
   }
 }
@@ -69,7 +85,7 @@ $journal-color: #20C0FA;
   div {
     font-size: 1rem;
     height: 85%;
-    overflow: scroll;
+    overflow: hidden;
     }
   }
 }
@@ -94,7 +110,7 @@ $journal-color: #20C0FA;
     border-radius: 1rem;
     min-height: 13rem;
     max-height: 13rem;
-    overflow: scroll;
+    overflow-y: auto;
     background-color: white;
   }
 }
