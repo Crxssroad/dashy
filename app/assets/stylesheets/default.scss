@@ -31,6 +31,9 @@ body {
   display: flex;
   width: 100%;
   align-content: stretch;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://dashy-production.s3.amazonaws.com/defaults/samsommer-vddccTqwal8-unsplash.jpg');
 }
 
 .dashboard-container {
@@ -60,6 +63,9 @@ body {
   font-size: 2rem;
   list-style: none;
   text-align: center;
+  i {
+    color: #3a3030;
+  }
   .iconTextHover {
     z-index: 10;
     display: none;
@@ -89,8 +95,10 @@ body {
 }
 
 .active-icon {
-  background-color: cadetblue;
-  color: white;
+  background-color: #20C0FA;
+  i {
+    color: white;
+  }
 }
 
 .navbar-brand {

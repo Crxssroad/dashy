@@ -1,14 +1,19 @@
 $journal-color: #20C0FA;
 
+.widget-tile {
+  transform: translate3d(0, 0, 0);
+}
+
 .widget-child {
   width: 90%;
   height: 90%;
   margin: 1rem auto auto;
   background-color: aliceblue;
+  transform: translate3d(0, 0, 0);
 }
 
 .journal-widget {
-  border-radius: 3%;
+  border-radius: 1rem;
   background-color: white;
   .description {
     background: #20c0fa;
@@ -22,6 +27,7 @@ $journal-color: #20C0FA;
     margin: 0;
   }
   h4 {
+    border-radius: 1rem 1rem 0 0;
     overflow: hidden;
     margin:0;
     height: 15%;
@@ -74,6 +80,7 @@ $journal-color: #20C0FA;
 
 .weather-widget {
   display: flex;
+  border-radius: 1rem;
   flex-direction: column;
   background-color: #2A2A2C;
   color: white;
