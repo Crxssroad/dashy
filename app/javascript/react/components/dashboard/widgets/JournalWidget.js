@@ -14,7 +14,7 @@ const JournalWidget = ({ journal, parentIndex }) => {
     <div className="journal-widget widget-child"
     >
       <h4>
-        {journal.title}
+        <Link to={`/stash/journals/${journal.id}`}>{journal.title}</Link>
         <i className="fas fa-book"></i>
       </h4>
       <p className="description">{journal.description}</p>
