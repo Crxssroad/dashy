@@ -1,4 +1,4 @@
-$journal-color: #20C0FA;
+$journal-color: #38acd6;
 
 .widget-tile {
   transform: translate3d(0, 0, 0);
@@ -16,7 +16,7 @@ $journal-color: #20C0FA;
   border-radius: 1rem;
   background-color: white;
   .description {
-    background: #20c0fa;
+    background: $journal-color;
     padding: 0.2rem 0.5rem 0.6rem;
     margin: 0;
     color: white;
@@ -59,7 +59,7 @@ $journal-color: #20C0FA;
       overflow-y: auto;
       white-space: nowrap;
       text-overflow: ellipsis;
-      background: #20c0fa;
+      background: #aeddef;
       padding: 0.2rem;
       border-radius: 0.3rem;
       cursor: pointer;
