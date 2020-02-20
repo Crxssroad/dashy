@@ -111,7 +111,7 @@ const Topbar = props => {
           <Route exact path='/users/login' render={(props) => <LandingPageContainer user={currentUser} />}   />
           <Route exact path='/stash' component={StashContainer} />
           <Route exact path='/stash/journals' component={JournalsApp}/>
-          <Route exact path='/stash/journals/:id' component={JournalsApp}/>
+          <Route exact path='/stash/journals/:journalId' component={JournalsApp}/>
           <Route exact path='/stash/journals/:journalId/entries/:entryId' component={JournalsApp}/>
         </Switch>
       </section>

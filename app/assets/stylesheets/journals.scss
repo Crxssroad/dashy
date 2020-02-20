@@ -1,9 +1,10 @@
+$vhMinusNavbar: calc(100vh - 96px);
 $journalsSidebarWidth: 200px;
 $entriesSidebarWidth: 270px;
 
 .journals-index-container {
   width: 100%;
-  height: 100vh;
+  height: $vhMinusNavbar;
   display: flex;
   align-content: stretch;
 
@@ -77,16 +78,19 @@ $entriesSidebarWidth: 270px;
   #journals-sidebar {
     // z-index: 20;
     background: #151718;
-    display: block;
+    display: flex;
+    flex-direction: column;
     left:0;
     width: $journalsSidebarWidth;
-    height: 100%;
+    height: $vhMinusNavbar;
     position: absolute;
     top: 720;
     transition: left 0.3s linear;
     font-family: "Helvetica Neue", Helvetica, Arial;
-    overflow: scroll;
-
+    .items-container {
+      max-height: inherit;
+      overflow-y: auto;
+    }
     .create-journal {
       margin: 0.3rem auto;
       display: block;
@@ -128,26 +132,29 @@ $entriesSidebarWidth: 270px;
   }
 
   #entries-sidebar {
-    // z-index: 20;
+    display: flex;
+    flex-direction: column;
     background: #edf1f5;
     border-right: thin solid #ccc;
     border-width: thin;
     width: $entriesSidebarWidth;
-    height: 100%;
-    display: block;
+    height: $vhMinusNavbar;
     position: absolute;
     left:$journalsSidebarWidth;
     transition: left 0.5s linear;
     top: 720;
     font-family: "Helvetica Neue", Helvetica, Arial;
-    overflow: scroll;
+    .items-container {
+      max-height: inherit;
+      overflow-y: auto;
+    }
     .item {
       background: inherit;
       color: #1C1E1F;
       border-bottom: thin solid #ccc;
       display: block;
       width: 270px;
-      height: 90px;
+      height: 100px;
       padding: 2px 10px 2px;
       text-decoration: none;
       margin: 0;
@@ -162,7 +169,7 @@ $entriesSidebarWidth: 270px;
       }
       p {
         display: block;
-        height: 50px;
+        height: 60px;
         font-size: 0.8rem;
         margin: 0;
         overflow: hidden;
@@ -172,6 +179,9 @@ $entriesSidebarWidth: 270px;
         height: 10px;
         margin-bottom: 5px;
         font-size: 0.5rem;
+      }
+      ul {
+        overflow-y: auto;
       }
     }
     .item.selected {
