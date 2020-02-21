@@ -7,10 +7,12 @@ import ModalForm from './ModalForm'
 import LandingPageContainer from './LandingPageContainer'
 import LoginForm from './LoginForm'
 import JournalsApp from './stash/journal/JournalsApp'
+import Widget from './pojos/widget'
 
 const Topbar = props => {
   const [currentUser, setCurrentUser] = useState(null)
   const [shouldLogout, setShouldLogout] = useState(false)
+  const [expandedWidget, setExpandedWidget] = useState(null)
   const activePath = props.location.pathname;
 
   useEffect(() => {
@@ -84,9 +86,17 @@ const Topbar = props => {
         </li>
       </Fragment>
   }
+  let widgetOverlay
+  if (expandedWidget) {
+    const closeModal = () => {
+      setExpandedWidget(null)
+    }
+    widgetOverlay = Widget.expand(expandedWidget, closeModal)
+  }
 
   return (
     <Fragment>
+      {widgetOverlay}
       <nav className="navbar navbar-expand-md navbar-light top-bar-bg">
           <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
               <ul className="navbar-nav mr-auto">
@@ -107,7 +117,7 @@ const Topbar = props => {
         <Switch>
           <Route exact path='/' render={(props) => <LandingPageContainer user={currentUser} /> }/>
           <Route exact path='/welcome' render={(props) => <LandingPageContainer user={currentUser} />}/>
-          <Route exact path='/dash' render={(props) => <DashboardContainer /> }/>
+          <Route exact path='/dash' render={(props) => <DashboardContainer setExpandedWidget={setExpandedWidget} /> }/>
           <Route exact path='/users/login' render={(props) => <LandingPageContainer user={currentUser} />}   />
           <Route exact path='/stash' component={StashContainer} />
           <Route exact path='/stash/journals' component={JournalsApp}/>

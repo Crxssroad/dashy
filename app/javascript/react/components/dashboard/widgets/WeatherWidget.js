@@ -1,11 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather'
 
-const WeatherWidget = ({ settings }) => {
+import WeatherExpandedWidget from './WeatherExpandedWidget'
+
+const WeatherWidget = ({ settings, setExpandedWidget }) => {
   const [weatherRecord, setWeatherRecord] = useState(null)
 
   let display = <p className="ellipsis">Loading<span>.</span><span>.</span><span>.</span></p>
-  let weather
+  let weather, expandedView
   if (weatherRecord) {
     weather = weatherRecord.data
     let current = weather.currently
@@ -43,11 +45,13 @@ const WeatherWidget = ({ settings }) => {
       }
 
       display = <Fragment>
-        <section style={{marginBottom:"1rem"}}>
+        <section style={{marginBottom:"1rem"}} >
           <span><i className="fas fa-map-marker-alt"></i> {weatherRecord.location.address.city}</span>
           <span style={{float:"right"}}>{Math.round(current.temperature)}°F</span>
         </section>
-        <section style={{marginBottom:"3.4rem", textAlign:"center"}}>
+        <section style={{marginBottom:"3.4rem", textAlign:"center"}} onClick={() => {
+            setExpandedWidget({type: "Weather", content: weather})
+          }}>
           {skycon}
           <p>{current.summary}</p>
         </section>
