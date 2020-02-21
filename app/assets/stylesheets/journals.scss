@@ -64,14 +64,18 @@ $entriesSidebarWidth: 270px;
         text-overflow: ellipsis;
       }
     }
-    .entry-content {
-      outline: none;
-      resize: none;
-      border: none;
-      width: 100%;
-      height: auto;
-      padding: 0.2rem 1.2rem;
-      height: 86vh;
+    .content-area {
+      max-height: 73vh;
+      min-height: 73vh;
+      textarea {
+        outline: none;
+        resize: none;
+        border: none;
+        width: 100%;
+        height: -webkit-fill-available;
+        padding: 0.2rem 1.2rem;
+        overflow: unset;
+      }
     }
   }
 
