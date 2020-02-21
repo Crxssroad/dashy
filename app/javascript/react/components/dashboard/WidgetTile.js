@@ -3,8 +3,8 @@ import { useDrag, useDrop } from 'react-dnd'
 
 import Widget from '../pojos/widget'
 
-const WidgetTile = ({ type, mod, handleDelete, editMode, moveWidget, index, widgetId }) => {
-  let wid = Widget.load(type, mod, index)
+const WidgetTile = ({ type, mod, handleDelete, editMode, moveWidget, index, widgetId, setExpandedWidget }) => {
+  let wid = Widget.load(type, mod, index, setExpandedWidget)
   let deleteButtonClass = "fas fa-times-circle remove-widget-icon"
   if (editMode) deleteButtonClass += " edit-active"
   const ref = useRef(null)

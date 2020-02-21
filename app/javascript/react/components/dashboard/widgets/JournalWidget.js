@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const JournalWidget = ({ journal, parentIndex }) => {
+const JournalWidget = ({ journal }) => {
   const entries = journal.entries.map(entry => {
     return(
       <li key={entry.id} className="entry"><Link to={`/stash/journals/${journal.id}/entries/${entry.id}`}><i className="fas fa-pen-square"></i> {entry.title}</Link></li>
     )
   })
-  let entryInfo = <p><i className="fas fa-book"></i> {journal.title} has no entries yet.</p>
+  let entryInfo = <p><i className="fas fa-book"></i> {journal.title} has no entries yet. <Link to={`/stash/journals/${journal.id}`}>Click me</Link> to get started.</p>
   if (entries.length === 1) entryInfo = <p>1 Entry</p>
   if (entries.length > 1) entryInfo = <p>{entries.length} Entries</p>
   return(

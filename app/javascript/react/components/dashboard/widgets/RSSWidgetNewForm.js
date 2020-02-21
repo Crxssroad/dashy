@@ -55,8 +55,10 @@ const RSSWidgetNewForm = ({ addWidget }) => {
   return (
     <form onSubmit={handleSubmit}>
       <ErrorList errors={errors} />
-      <div className="form-group">
+      <div className="form-group rss">
         <input placeholder="URL" className="form-control" name="url" type="text" onChange={handleInput} value={feed.url}/>
+        <p>Must be an rss link. These usually end in '.xml' or '.rss' e.g.</p>
+        <p><span>https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml</span></p>
       </div>
 
       <input className="btn btn-block" type="submit" value="Add New RSS Widget" />

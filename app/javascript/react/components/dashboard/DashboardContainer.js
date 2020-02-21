@@ -5,7 +5,7 @@ import Backend from 'react-dnd-html5-backend'
 import Sidebar from '../Sidebar'
 import WidgetTile from './WidgetTile'
 
-const DashboardContainer = () => {
+const DashboardContainer = ({ setExpandedWidget }) => {
   const [widgets, setWidgets] = useState([])
   const [widgetErrors, setWidgetErrors] = useState([])
   const [editMode, setEditMode] = useState(false)
@@ -144,6 +144,7 @@ const DashboardContainer = () => {
         index={index}
         moveWidget={moveWidget}
         widgetId={widget.id}
+        setExpandedWidget={setExpandedWidget}
       />
     )
   })

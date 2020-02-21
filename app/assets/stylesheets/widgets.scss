@@ -128,3 +128,75 @@ $journal-color: #38acd6;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='peachpuff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
   }
 }
+
+.form-group.rss {
+  p {
+    font-size: 1rem;
+    margin: 0;
+
+  }
+  span {
+    font-size: 0.7rem;
+    background-color: aliceblue;
+  }
+}
+
+.expanded {
+  background: rgba(0, 0, 0, 0.75);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.expanded-weather {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  flex-wrap: wrap;
+  .close-modal-area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .header-area {
+    width: 100%;
+  }
+  .tile-area {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    top: 10%;
+    .weather-tile {
+      background-color: #2A2A2C;
+      color: white;
+      width: 13%;
+      padding: 0.5rem;
+      font-weight: 200;
+      border-radius: 0.8rem;
+      .left {
+        text-align: center;
+      }
+      .right {
+
+      }
+    }
+  }
+}
+
+// tablets
+@media only screen and (max-width: 768px) {
+  // switch weather to horizontal tiles
+
+}
+
+// mobile L
+@media only screen and (max-width: 425px) {
+
+}
+
+// mobile m
+@media only screen and (max-width: 375px) {
+
+}
