@@ -2,7 +2,31 @@
 
 # Dashy
 
-A dashboard for the discerning developer.
+Dashy is a platform for a variety of custom widgets ranging from journals, notes, rss feeds and weather widgets.
 
-* Author
-  * Gabriel
+## Author
+  * Gabriel Encarnacion
+
+## Dependencies
+  * ruby 2.6.5
+  * ruby-on-rails 5.2.3
+  * react 16.8.0
+  * devise
+  * carrierwave
+  * fog-AWS
+  * react-dnd
+  * react-dnd-html5-backend
+  * bootstrap
+  * react-animated-weather
+  * react-time-ago
+  * react-dropzone
+
+## Setup Instructions
+  1. `bundle install`
+  2. `yarn install`
+  3. `bundle exec rake db:create`
+  4. `bundle exec rake db:migrate`
+  5. `bundle exec rake db:seed`
+  6. `rails s`
+  7. In a separate tab, `yarn start`
+  8. In a browser, visit, `http://localhost:3000`
