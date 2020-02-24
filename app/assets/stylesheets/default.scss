@@ -105,23 +105,6 @@ body {
   font-size: 2.95rem;
 }
 
-.widget-tile {
-  display: inline-flex;
-  width: 20rem;
-  height: 20rem;
-}
-
-.widget-child {
-  box-shadow: 0px 0 6px 0px #7f7a7a;
-}
-
-.widget-child {
-  transition: all .2s ease-in-out;
-}
-.widget-child:hover {
-  transform: scale(1.1);
-}
-
 .modalform-text {
   margin: 0;
   font-size: 1.3rem;

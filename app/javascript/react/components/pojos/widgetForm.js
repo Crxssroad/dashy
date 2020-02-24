@@ -3,6 +3,7 @@ import React from 'react'
 import JournalWidgetNewForm from '../dashboard/widgets/JournalWidgetNewForm'
 import WeatherWidgetNewForm from '../dashboard/widgets/WeatherWidgetNewForm'
 import RSSWidgetNewForm from '../dashboard/widgets/RSSWidgetNewForm'
+import NoteWidgetNewForm from '../dashboard/widgets/NoteWidgetNewForm'
 
 class WidgetForm {
   static load_stashable(type, updateFetchedStash, addWidget) {
@@ -16,6 +17,9 @@ class WidgetForm {
     }
     if (type === "RssFeed") {
       return <RSSWidgetNewForm addWidget={addWidget} />
+    }
+    if (type === "Note") {
+      return <NoteWidgetNewForm addWidget={addWidget} />
     }
   }
 }

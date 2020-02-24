@@ -61,7 +61,9 @@ const EntryPage = ({ entry, journal, handleEntryInput, updateEntry, deleteEntry,
       <section className="entry-hdr">
         {header}
       </section>
-      <textarea autoFocus className="entry-content" name="body" onChange={handleEntryInput} value={entry.body} />
+      <section className="content-area">
+        <textarea autoFocus className="entry-content" name="body" onChange={handleEntryInput} value={entry.body} />
+      </section>
     </section>
   )
 }

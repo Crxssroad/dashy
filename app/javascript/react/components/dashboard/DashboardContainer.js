@@ -109,7 +109,7 @@ const DashboardContainer = ({ setExpandedWidget }) => {
         setWidgetErrors(parsedBody)
       }
     })
-    .catch(error => console.error(`Error in journal post fetch ${error.message}`))
+    .catch(error => console.error(`Error in widget post fetch ${error.message}`))
   }
 
   const deleteWidget = (widgetId) => {

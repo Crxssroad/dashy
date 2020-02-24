@@ -1,6 +1,9 @@
 $journal-color: #38acd6;
 
 .widget-tile {
+  display: inline-flex;
+  width: 20rem;
+  height: 20rem;
   transform: translate3d(0, 0, 0);
 }
 
@@ -9,7 +12,13 @@ $journal-color: #38acd6;
   height: 90%;
   margin: 1rem auto auto;
   background-color: aliceblue;
+  box-shadow: 0px 0 6px 0px #7f7a7a;
+  transition: all .2s ease-in-out;
   transform: translate3d(0, 0, 0);
+}
+
+.widget-child:hover {
+  transform: scale(1.1);
 }
 
 .journal-widget {
@@ -129,6 +138,24 @@ $journal-color: #38acd6;
   }
 }
 
+.note-widget {
+  background-color: #ffff88;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-family: 'Source Sans Pro', sans-serif;
+  h4 {
+    text-align: center;
+    i {
+      float: right;
+    }
+  }
+  p {
+    height: 14.5rem;
+    overflow-y: auto;
+    white-space: pre-line;
+  }
+}
+
 .form-group.rss {
   p {
     font-size: 1rem;
@@ -181,6 +208,35 @@ $journal-color: #38acd6;
       .right {
 
       }
+    }
+  }
+}
+
+.expanded-note {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  .close-modal-area {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .note-area {
+    font-family: 'Source Sans Pro', sans-serif;
+    position: relative;
+    background-color: #ffff88;
+    width: 500px;
+    height: 80%;
+    top: 7%;
+    textarea {
+      height: 100%;
+      width: 100%;
+      background: transparent;
+      resize: none;
+      border: none;
+      padding: 1rem;
     }
   }
 }
