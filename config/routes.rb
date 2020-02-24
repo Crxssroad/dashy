@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :stashes, only: [:index]
       resources :journals, only: [:index, :show, :create, :update, :destroy] do
-        resources :entries, only: [:create, :update, :destroy] 
+        resources :entries, only: [:create, :update, :destroy]
       end
       get '/users/current'
       resources :widgets, only: [:index, :create, :destroy]
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :weathers, only: [:create]
       resources :weather_settings, only: [:create]
       resources :rss_feeds, only: [:create]
+      resources :notes, only: [:index, :show, :create, :update, :destroy]
     end
   end
 end
