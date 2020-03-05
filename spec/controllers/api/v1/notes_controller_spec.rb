@@ -40,7 +40,33 @@ RSpec.describe Api::V1::NotesController, type: :controller do
   end
 
   describe "POST#create" do
+    let!(:good_post) {
+      {
+        note: {
+          body: "It just goes to show you"
+        }
+      }
+    }
+    context "succesful post" do
+      it "should return an empty note if no body is provided" do
+        sign_in user
+        post :create
+        returned_json = JSON.parse(response.body)
 
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
+
+        expect(returned_json["body"]).to eq("")
+      end
+
+      it "should return the newly created post" do
+        sign_in user
+        post :create, params: good_post
+        returned_json = JSON.parse(response.body)
+
+        expect(returned_json["body"]).to eq(good_post[:note][:body])
+      end
+    end
   end
 
   describe "PATCH#update" do
