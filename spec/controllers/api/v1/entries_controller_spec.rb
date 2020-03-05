@@ -121,8 +121,23 @@ RSpec.describe Api::V1::EntriesController, type: :controller do
   end
 
   describe "DELETE#destroy" do
+    let!(:good_delete) {
+      {
+        journal_id: journal.id,
+        id: entry.id
+      }
+    }
     context "succesful delete" do
+      it "should return the deleted entry" do
+        delete :destroy, params: good_delete
+        returned_json = JSON.parse(response.body)
 
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
+
+        expect(returned_json["title"]).to eq(entry.title)
+        expect(returned_json["body"]).to eq(entry.body)
+      end
     end
   end
 end
