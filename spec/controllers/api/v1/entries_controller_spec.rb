@@ -95,18 +95,18 @@ RSpec.describe Api::V1::EntriesController, type: :controller do
   end
 
   describe "PATCH#update" do
+    let!(:good_patch) {
+      {
+        entry: {
+          title: "Mikaelhausen goes on vacation",
+          body: "It all started a couple of weeks ago when, Mikaelhausen, leader of the red pygmies...",
+        },
+        journal_id: journal.id,
+        id: entry.id
+      }
+    }
 
     context "succesful patch" do
-      let!(:good_patch) {
-        {
-          entry: {
-            title: "Mikaelhausen goes on vacation",
-            body: "It all started a couple of weeks ago when, Mikaelhausen, leader of the red pygmies...",
-          },
-          journal_id: journal.id,
-          id: entry.id
-        }
-      }
       it "should return the newly updated entry" do
         patch :update, params: good_patch
         returned_json = JSON.parse(response.body)
@@ -118,18 +118,10 @@ RSpec.describe Api::V1::EntriesController, type: :controller do
         expect(returned_json["body"]).to eq(good_patch[:entry][:body])
       end
     end
-
-    context "unsuccesful patch" do
-
-    end
   end
 
   describe "DELETE#destroy" do
     context "succesful delete" do
-
-    end
-
-    context "unsuccesful delete" do
 
     end
   end
