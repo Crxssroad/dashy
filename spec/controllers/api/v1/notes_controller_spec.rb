@@ -26,7 +26,17 @@ RSpec.describe Api::V1::NotesController, type: :controller do
   end
 
   describe "GET#show" do
+    it "should return the requested note" do
+      sign_in user
+      get :show, params: { id: note.id }
 
+      returned_json = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json["body"]).to eq(note.body)
+    end
   end
 
   describe "POST#create" do
