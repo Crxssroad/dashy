@@ -2,7 +2,7 @@ class Api::V1::EntriesController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
 
   def create
-    journal = Journal.find(params[:journal_id])
+    journal = Journal.find_by(id: params[:journal_id])
     entry = Entry.new(entry_params)
     if entry_params[:title] == ""
       entry.title = "Untitled"
