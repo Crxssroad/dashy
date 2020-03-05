@@ -11,7 +11,18 @@ RSpec.describe Api::V1::NotesController, type: :controller do
       user: user
     ) }
   describe "GET#index" do
-    
+    it "should return all the notes belonging to the user" do
+      sign_in user
+      get :index
+      returned_json = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(response.content_type).to eq("application/json")
+
+      expect(returned_json.length).to eq(2)
+      expect(returned_json[0]["body"]).to eq(note.body)
+      expect(returned_json[1]["body"]).to eq(note2.body)
+    end
   end
 
   describe "GET#show" do
