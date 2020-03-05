@@ -70,7 +70,25 @@ RSpec.describe Api::V1::NotesController, type: :controller do
   end
 
   describe "PATCH#update" do
+    let!(:good_patch) {
+      {
+        note: {
+          body: "Give me freedom or give me death",
+        },
+        id: note.id
+      }
+    }
+    context "succesful patch" do
+      it "should return the newly updated note" do
+        patch :update, params: good_patch
+        returned_json = JSON.parse(response.body)
 
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq("application/json")
+
+        expect(returned_json["body"]).to eq(good_patch[:note][:body])
+      end
+    end
   end
 
   describe "DELETE#destroy" do
