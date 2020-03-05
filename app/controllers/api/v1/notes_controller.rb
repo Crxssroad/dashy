@@ -11,6 +11,9 @@ class Api::V1::NotesController < ApplicationController
 
   def create
     note = Note.new(body: "")
+    if params[:note]
+      note.assign_attributes(note_params)
+    end
     note.user = current_user
 
     if note.save
